@@ -48,6 +48,12 @@
 							</li>
 						@else
 						@endif
+						<li>
+							<a href="{{route('admin.upt.index')}}">
+							<i class="icon-home"></i>
+								Laporan
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li>

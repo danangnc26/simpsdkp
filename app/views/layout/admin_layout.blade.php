@@ -113,7 +113,7 @@
 		<div class="page-content" style="padding-top:0px;">
 			<h3 style="margin-top:0px;">{{Lib::getNamaPenempatanUser()}}</h3>
 			{{--Route::currentRouteName()--}}
-			<button class="btn blue"><div class="cssload-speeding-wheel"></div></button>
+			<!-- <button class="btn blue"><div class="cssload-speeding-wheel"></div></button> -->
 			@section('content')
 			@show
 

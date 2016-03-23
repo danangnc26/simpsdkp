@@ -301,7 +301,7 @@ Class Lib{
 
 	public static function version()
 	{
-		return 'V.0.5.10 Aplha';
+		return 'V.0.5.10 Alpha';
 	}
 
 

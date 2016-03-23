@@ -60,7 +60,37 @@
 					<a href="#">
 					<i class="icon-home"></i>
 					<span class="title">CMS</span>
+					<span class="arrow "></span>
 					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">
+							<i class="icon-home"></i>
+							<span class="title">Pos</span>
+							<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="{{route('admin.cms.post.index.all')}}">
+									<i class="icon-home"></i>
+										Semua
+									</a>
+								</li>
+								<li>
+									<a href="#">
+									<i class="icon-home"></i>
+										Draf
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+							<i class="icon-home"></i>
+								Media
+							</a>
+						</li>
+					</ul>
 				</li>
 				<li>
 					<a href="{{route('admin.users.index')}}">

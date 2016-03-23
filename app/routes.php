@@ -146,6 +146,12 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('admin/grafik/bar/data/api', ['as' => 'admin.grafik.bar.api', 'uses' => 'AdminGlobalController@apiBar']);
 	Route::get('admin/grafik/pie', ['as' => 'admin.grafik.pie', 'uses' => 'AdminGlobalController@viewPie']);
 
+
+	#CMS
+	$cms = 'CMSController@';
+	Route::get('admin/cms/index', ['as' => 'admin.cms.post.index.all', 'uses' => $cms.'index']);
+	Route::get('admin/cms/create', ['as' => 'admin.cms.post.create', 'uses' => $cms.'create']);
+
 	#Users
 	$users = 'UsersController@';
 	Route::get('admin/users/index', ['as' => 'admin.users.index', 'uses' => $users.'index']);

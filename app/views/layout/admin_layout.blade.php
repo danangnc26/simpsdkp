@@ -129,7 +129,7 @@
 	<div class="page-footer-inner">
 		<small>
 			{{Carbon::now()->year}} &copy; SIMPSDKP {{Lib::version()}} - Kementrian Perikanan & Kelautan RI. 
-			<br>Render time : {{ number_format((microtime(true) - LARAVEL_START), 4) }}
+			<br>Render time : {{ number_format((microtime(true) - LARAVEL_START), 4) }} s
 		</small>
 	</div>
 	<div class="scroll-to-top">

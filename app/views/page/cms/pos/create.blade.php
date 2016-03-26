@@ -29,12 +29,16 @@
 									<div id="collapse_1" class="panel-collapse collapse">
 										<div class="panel-body">
 												<label>
-												<input checked type="radio" id="riksa" class="form-control" name="status" value="R"> Otomatis
+												<input checked type="radio" id="otomatis" class="form-control" name="waktu_publikasi" value="O"> Otomatis
 												</label>
 												<br	>
 												<label>
-												<input type="radio" id="tangkap" class="form-control" name="status" value="T"> Setel tanggal & waktu
-												</label>	
+												<input type="radio" id="manual" class="form-control" name="waktu_publikasi" value="M"> Setel tanggal & waktu
+												</label>
+												<div id="waktu_manual" style="display:none;"> 
+													{{Form::text('tanggal', null, ['id' => 'tanggal', 'class' => 'form-control date-picker', 'style' => 'width: 49%; float:left; font-size: 0.9em;', 'data-date-format' => 'dd-mm-yyyy', 'placeholder' => 'Tanggal'])}}
+													<input id="jam" class="form-control" style="width: 49%; float:right" name="jam" type="time">
+												</div>	
 										</div>
 									</div>
 								</div>
@@ -61,7 +65,14 @@
 									</div>
 									<div id="collapse_3" class="panel-collapse collapse" aria-expanded="true">
 										<div class="panel-body">
-											
+											@if(empty($kategori))
+											@else
+											@foreach($kategori as $ka)
+											<li style="list-style-type:none;">
+												<input type="checkbox" class="form-control" name="kategori_pos[]" value="{{Crypt::encrypt($ka->id_kategori)}}"> {{$ka->nama_kategori}}
+											</li>
+											@endforeach
+											@endif
 										</div>
 									</div>
 								</div>
@@ -72,22 +83,29 @@
 		<div class="row">
 			<div class="col-md-12">
 				<button class="btn green">Publikasikan</button>
-				<button class="btn green">Simpan</button>
-				<button class="btn green">Pratinjau</button>
-				<button class="btn green">Tutup</button>
+				<button class="btn blue">Simpan</button>
+				<button class="btn yellow">Pratinjau</button>
+				<button class="btn red">Tutup</button>
 			</div>
 		</div>
 	</div>
 </div>
 {{HTML::script('assets/global/plugins/ckeditor/ckeditor.js')}}
 <script type="text/javascript">
-	var editor = CKEDITOR.replace( 'editor_pos' , {
-	extraPlugins: 'autogrow',
-	autoGrow_maxHeight: 800,
 
-	// Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
-	removePlugins: 'resize'
-});
-	// editor.resize( '100%', '350');
+	var editor = CKEDITOR.replace( 'editor_pos' , {
+		extraPlugins: 'autogrow',
+		autoGrow_maxHeight: 800,
+		removePlugins: 'resize'
+	});
+
+	$('input[name=waktu_publikasi]').change(function(){
+		if($(this).val() == 'M'){
+			$('#waktu_manual').show();
+		}else{
+			$('#waktu_manual').hide();
+		}
+	});
+	
 </script>
 @stop

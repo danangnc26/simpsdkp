@@ -148,9 +148,20 @@ Route::group(['before' => 'auth'], function(){
 
 
 	#CMS
-	$cms = 'CMSController@';
-	Route::get('admin/cms/index', ['as' => 'admin.cms.post.index.all', 'uses' => $cms.'index']);
-	Route::get('admin/cms/create', ['as' => 'admin.cms.post.create', 'uses' => $cms.'create']);
+	//Post
+	$cms_post = 'CMSPostController@';
+	Route::get('admin/cms/index', ['as' => 'admin.cms.post.index.all', 'uses' => $cms_post.'index']);
+	Route::get('admin/cms/create', ['as' => 'admin.cms.post.create', 'uses' => $cms_post.'create']);
+
+	//Kategori
+	$cms_kategori = 'CMSKategoriController@';
+	Route::get('admin/cms/kategori/index', ['as' => 'admin.cms.kategori.index', 'uses' => $cms_kategori.'index']);
+	Route::get('admin/cms/kategori/api', ['as' => 'admin.cms.kategori.api', 'uses' => $cms_kategori.'getListKategori']);
+	Route::get('admin/cms/kategori/create', ['as' => 'admin.cms.kategori.create', 'uses' => $cms_kategori.'create']);
+	Route::post('admin/cms/kategori/save', ['as' => 'admin.cms.kategori.save', 'uses' => $cms_kategori.'store']);
+	Route::get('admin/cms/kategori/edit', ['as' => 'admin.cms.kategori.edit', 'uses' => $cms_kategori.'edit']);
+	Route::post('admin/cms/kategori/update', ['as' => 'admin.cms.kategori.update', 'uses' => $cms_kategori.'update']);
+	Route::get('admin/cms/kategori/delete', ['as' => 'admin.cms.kategori.delete', 'uses' => $cms_kategori.'destroy']);
 
 	#Users
 	$users = 'UsersController@';

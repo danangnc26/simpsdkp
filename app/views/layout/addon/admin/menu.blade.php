@@ -90,6 +90,12 @@
 								Media
 							</a>
 						</li>
+						<li>
+							<a href="{{route('admin.cms.kategori.index')}}">
+							<i class="icon-home"></i>
+								Kategori
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li>

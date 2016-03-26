@@ -1,6 +1,6 @@
 <?php
 
-class CMSController extends \CoreController {
+class CMSPostController extends \CoreController {
 
 	/**
 	 * Display a listing of the resource.
@@ -21,7 +21,8 @@ class CMSController extends \CoreController {
 	 */
 	public function create()
 	{
-		$this->layout()->content = View::make('page.cms.pos.create');
+		$kategori = CMSKategoriModel::all();
+		$this->layout()->content = View::make('page.cms.pos.create')->with(['kategori' => $kategori]);
 	}
 
 	/**

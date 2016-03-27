@@ -185,6 +185,22 @@ Route::group(['before' => 'auth'], function(){
 	}]);
 });
 
+# /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
+
+Route::get('tesindex', function(){
+	return View::make('page.public.home');
+});
+
+# /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
+
+
+
+
+
+
+
+
+
 Route::get('test', function(){
 	$user = Sentry::getUser();
 	$role = $user->getGroups();

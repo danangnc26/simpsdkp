@@ -304,5 +304,13 @@ Class Lib{
 		return 'V.0.5.10 Alpha';
 	}
 
+	public static function tanggalNow()
+	{
+		$carbon = Carbon::now();
+		setlocale(LC_TIME, 'Indonesian');
+		$formated = $carbon->formatLocalized('%A, %d %B %Y');
+		return $formated;
+	}
+
 
 }

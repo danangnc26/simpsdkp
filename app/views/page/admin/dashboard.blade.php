@@ -27,58 +27,58 @@
 <!-- BEGIN PAGE CONTENT INNER -->
 <div class="row margin-top-10">
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat2">
-			<div class="display">
-				<div class="number">
-					<h3 class="font-green-sharp">{{Lib::getJumlah('speedboat')}}</h3>
-					<small>Speedboat</small>
-				</div>
-				<div class="icon">
-					<i class="fa fa-ship"></i>
-				</div>
+		<a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+			<div class="visual">
+				<i class="fa fa-ship"></i>
 			</div>
-		</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="1349">{{Lib::getJumlah('speedboat')}}</span>
+				</div>
+				<div class="desc"> Speedboat </div>
+			</div>
+		</a>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat2">
-			<div class="display">
-				<div class="number">
-					<h3 class="font-red-haze">{{Lib::getJumlah('kapal_pengawas')}}</h3>
-					<small>Kapal Pengawas</small>
-				</div>
-				<div class="icon">
-					<i class="fa fa-ship"></i>
-				</div>
+		<a class="dashboard-stat dashboard-stat-v2 red" href="#">
+			<div class="visual">
+				<i class="fa fa-ship"></i>
 			</div>
-		</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="1349">{{Lib::getJumlah('kapal_pengawas')}}</span>
+				</div>
+				<div class="desc"> Kapal Pengawas </div>
+			</div>
+		</a>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat2">
-			<div class="display">
-				<div class="number">
-					<h3 class="font-blue-sharp">{{Lib::getJumlah('upt')}}</h3>
-					<small>UPT</small>
-				</div>
-				<div class="icon">
-					<i class="fa fa-home"></i>
-				</div>
+		<a class="dashboard-stat dashboard-stat-v2 green" href="#">
+			<div class="visual">
+				<i class="fa fa-home"></i>
 			</div>
-		</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="1349">{{Lib::getJumlah('upt')}}</span>
+				</div>
+				<div class="desc"> UPT </div>
+			</div>
+		</a>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat2">
-			<div class="display">
-				<div class="number">
-					<h3 class="font-purple-soft">{{Lib::getJumlah('satker')}}</h3>
-					<small>Satker</small>
-				</div>
-				<div class="icon">
-					<i class="fa fa-home"></i>
-				</div>
+		<a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+			<div class="visual">
+				<i class="fa fa-home"></i>
 			</div>
-		</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="1349">{{Lib::getJumlah('satker')}}</span>
+				</div>
+				<div class="desc"> Satker </div>
+			</div>
+		</a>
 	</div>
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	<!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat2">
 			<div class="display">
 				<div class="number">
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 <div class="row">
 	<div class="col-md-6 col-sm-6">

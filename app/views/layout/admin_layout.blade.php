@@ -111,7 +111,16 @@
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
 		<div class="page-content" style="padding-top:0px;">
-			<h3 style="margin-top:0px;">{{Lib::getNamaPenempatanUser()}}</h3>
+			
+			<div class="page-head">
+				<div class="page-title">
+					<h1>{{Lib::getNamaPenempatanUser()}}</h1>
+				</div>
+				<div class="pull-right btn btn-fit-height green">
+					<i class="fa fa-calendar"></i> <span class="thin uppercase hidden-xs">{{Lib::tanggalNow()}}</span>
+				</div>
+			</div>
+			<!-- <h3 style="margin-top:0px;"></h3> -->
 			{{--Route::currentRouteName()--}}
 			<!-- <button class="btn blue"><div class="cssload-speeding-wheel"></div></button> -->
 			@section('content')

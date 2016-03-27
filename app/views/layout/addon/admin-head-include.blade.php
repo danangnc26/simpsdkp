@@ -20,7 +20,7 @@
 <link href="../../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css"> -->
 
 <!-- <link href="../../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/> -->
-
+{{HTML::style('assets/global/css/components-v2.min.css')}}
 {{HTML::style('assets/global/css/components-rounded.css')}}
 {{HTML::style('assets/global/css/plugins.css')}}
 

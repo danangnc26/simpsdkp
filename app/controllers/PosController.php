@@ -68,7 +68,7 @@ class PosController extends \CoreController {
 			$this->pos->no_telp_pos		= $input['no_telp_pos'];
 			$this->pos->email_pos		= $input['email_pos'];
 			$this->pos->id_upt 			= $this->decrypt($input['id_upt']);
-			$this->pos->image 			= $this->createImage($input['gambar_pos']);
+			$this->pos->image 			= $this->createImage($input['gambar_pos'], false, 'pos');	
 			$this->pos->save();
 
 			$respon = ['status' => true, 'msg' => $this->input_success];
@@ -105,7 +105,8 @@ class PosController extends \CoreController {
 			$update->no_telp_pos		= $input['no_telp_pos'];
 			$update->email_pos		= $input['email_pos'];
 			if(isset($input['gambar_pos'])){
-				$update->image 				= $this->createImage($input['gambar_pos'])	;
+				$this->destroyImage($update->image, 'pos');
+				$update->image 				= $this->createImage($input['gambar_pos'], false, 'pos');	
 			}
 			$update->save();
 
@@ -192,7 +193,9 @@ class PosController extends \CoreController {
 		if(Request::ajax()){
 
 			$delete = $this->pos->find($this->decrypt(Request::get('id_pos')));
+			$this->destroyImage($update->image, 'pos');
 			$delete->delete();
+
 
 			$respon = ['status' => true, 'msg' => $this->delete_message];
 

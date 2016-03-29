@@ -23,7 +23,7 @@
 								null, 
 								array('bSortable' => false), 
 								array('bSortable' => false), 
-								array('bSortable' => false, 'width' => 130), 
+								array('bSortable' => false, 'width' => 70), 
 							),
 							'order' => 
 								array(
@@ -38,7 +38,7 @@
 				)
 				->setCallbacks(
 					'fnDrawCallback', 'function ( oSettings ) {
-
+						cst_tooltip();
 					}'
 				)
 			    ->setUrl(route('admin.cms.kategori.api'))
@@ -51,6 +51,8 @@
 	$(document).ready(function(){
 		$('#form-kategori').load("{{route('admin.cms.kategori.create')}}");
 	});
+
+	
 	function hapus(a, b, c){
 		if(confirm(b)){
 			$.get(c + a, function(d){

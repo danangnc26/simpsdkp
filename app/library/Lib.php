@@ -312,5 +312,17 @@ Class Lib{
 		return $formated;
 	}
 
+	public static function listCMSKategoriUtama()
+	{
+		$d[''] = 'none';
+		$data = CMSKategoriModel::where('kategori_utama', '=', null)->get(['id_kategori', 'nama_kategori']);
+
+		foreach ($data as $key => $value) {
+			$d[$value->id_kategori] = $value->nama_kategori;
+		}
+		return $d;
+
+	}
+
 
 }

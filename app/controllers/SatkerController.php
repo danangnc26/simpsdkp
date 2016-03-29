@@ -78,7 +78,7 @@ class SatkerController extends \CoreController {
 			$this->satker->email_satker		= $input['email_satker'];
 			$this->satker->kepala_satker 	= $input['kepala_satker'];
 			$this->satker->id_upt 			= $id;
-			$this->satker->image 			= $this->createImage($input['gambar_satker']);
+			$this->satker->image 			= $this->createImage($input['gambar_satker'], false, 'satker');	
 			$this->satker->save();
 
 			$respon = ['status' => true, 'msg' => $this->input_success];
@@ -117,7 +117,8 @@ class SatkerController extends \CoreController {
 			$update->kepala_satker 		= $input['kepala_satker'];
 			$update->id_upt 			= $input['id_upt'];
 			if(isset($input['gambar_satker'])){
-				$update->image 				= $this->createImage($input['gambar_satker']);	
+				$this->destroyImage($update->image, 'satker');
+				$update->image 				= $this->createImage($input['gambar_satker'], false, 'satker');	
 			}
 			$update->save();
 
@@ -204,7 +205,9 @@ class SatkerController extends \CoreController {
 		if(Request::ajax()){
 
 			$delete = $this->satker->find($this->decrypt(Request::get('id_satker')));
+			$this->destroyImage($delete->image, 'satker');
 			$delete->delete();
+			
 
 			$respon = ['status' => true, 'msg' => $this->delete_message];
 

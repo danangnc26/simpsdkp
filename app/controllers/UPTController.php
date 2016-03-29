@@ -89,7 +89,7 @@ class UPTController extends \CoreController {
 			$this->upt->alamat 				= $input['alamat_upt'];
 			$this->upt->id_kota 			= $input['kota_upt'];
 			// $this->upt->image 				= Image::make($input['gambar_upt']->getRealPath())->encode('data-url');
-			$this->upt->image 				= $this->createImage($input['gambar_upt']);
+			$this->upt->image 				= $this->createImage($input['gambar_upt'], false, 'upt');	
 			$this->upt->save();
 
 			$respon = ['status' => true, 'msg' => $this->input_success, 'url' => route('admin.upt.index')];
@@ -151,7 +151,7 @@ class UPTController extends \CoreController {
 		if(Request::ajax()){
 
 			$input = Input::all();
-			$update = $this->upt->find($input['id_upt']);
+			$update = $this->upt->find($this->decrypt($input['id_upt']));
 
 			$update->nama_upt 			= $input['nama_upt'];
 			$update->email 				= $input['email_upt'];
@@ -160,11 +160,18 @@ class UPTController extends \CoreController {
 			$update->alamat 			= $input['alamat_upt'];
 			$update->id_kota 			= $input['kota_upt'];
 			if(isset($input['gambar_upt'])){
-				$update->image 				= $this->createImage($input['gambar_upt']);
+				$this->destroyImage($update->image, 'upt');
+				$update->image 				= $this->createImage($input['gambar_upt'], false, 'upt');	
 			}
 			$update->save();
 
-			$respon = ['status' => true, 'msg' => $this->input_success, 'url' => route('admin.upt.manage')];
+			if(Lib::uRole() == null){
+				$id = $input['id_upt'];
+			}else{
+				$id = null;
+			}
+
+			$respon = ['status' => true, 'msg' => $this->input_success, 'url' => route('admin.upt.manage', 'id_upt='.$id)];
 
 			return Response::json($respon);
 
@@ -183,6 +190,7 @@ class UPTController extends \CoreController {
 		if(Request::ajax()){
 
 			$delete = $this->upt->find(Request::get('id_upt'));
+			$this->destroyImage($update->image, 'upt');
 			$delete->delete();
 
 			$respon = ['status' => true, 'msg' => $this->delete_message];

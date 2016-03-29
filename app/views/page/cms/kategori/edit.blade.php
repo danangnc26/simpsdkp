@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label>UFL : </label>
 					{{Form::text('ufl', $value->ufl, ['id' => 'ufl', 'class' => 'form-control', 'required' => ''])}}
-					<small><i>URL Friendly Name of Categories</i></small>
+					<small><i>Nama kategori yang akan ditampilkan pada url.</i></small>
 				</div>
 				<div class="form-group">
 					<button class="btn green">Simpan Kategori</button>

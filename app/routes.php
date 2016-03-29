@@ -152,6 +152,7 @@ Route::group(['before' => 'auth'], function(){
 	$cms_post = 'CMSPostController@';
 	Route::get('admin/cms/index', ['as' => 'admin.cms.post.index.all', 'uses' => $cms_post.'index']);
 	Route::get('admin/cms/create', ['as' => 'admin.cms.post.create', 'uses' => $cms_post.'create']);
+	Route::post('admin/cms/save', ['as' => 'admin.cms.post.save', 'uses' => $cms_post.'store']);
 
 	//Kategori
 	$cms_kategori = 'CMSKategoriController@';
@@ -191,6 +192,9 @@ Route::get('tesindex', function(){
 	return View::make('page.public.home');
 });
 
+Route::get('tescontent', function(){
+	return View::make('page.public.content');
+});
 # /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
 
 
@@ -214,14 +218,15 @@ Route::get('test', function(){
 });
 
 Route::get('test2', function(){
-	
-			$t_awal = 2011;
+	$a = SatkerModel::find(6);
+	return $a->image;
+			/*$t_awal = 2011;
 			$t_akhir = 2016;
 			$selisih = $t_akhir - $t_awal;
 			for ($i=0; $i < $selisih+1; $i++) { 
 				$tahun[] = $t_awal+$i;
 			}
-			return $tahun;
+			return $tahun;*/
 
 
 
@@ -234,4 +239,6 @@ Route::get('test2', function(){
 });
 
 Route::get('tesroute', ['as' => 'tes', 'uses' => 'UsersController@index']);
+
+
 

@@ -22,6 +22,9 @@
 {{HTML::script('assets/admin/layout4/scripts/layout.js')}}
 {{HTML::script('assets/global/plugins/select2/select2.min.js')}}
 
+{{HTML::script('assets/global/plugins/bootstrap-summernote/summernote.min.js')}}
+{{HTML::script('assets/admin/pages/scripts/components-editors.js')}}
+
 
 {{HTML::script('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}
 {{HTML::script('assets/admin/pages/scripts/components-pickers.js')}}
@@ -56,7 +59,10 @@ $(document).ready(function() {
 	Metronic.init(); // init metronic core componets
 	Layout.init(); // init layout
 	ComponentsPickers.init();
+	ComponentsEditors.init();
+
 
    $('#data-menu').attr('class', 'active');
+   
 });
 </script>

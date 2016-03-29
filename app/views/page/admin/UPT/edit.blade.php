@@ -12,7 +12,7 @@
 		@else
 		@foreach($data as $value)
 		{{Form::open(['route' => 'admin.upt.update', 'id' => 'updateUPT', 'files' => true, 'method' => 'post'])}}
-		{{Form::hidden('id_upt', $value->id_upt)}}
+		{{Form::hidden('id_upt', Crypt::encrypt($value->id_upt))}}
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">

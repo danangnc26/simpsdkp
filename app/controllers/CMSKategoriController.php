@@ -25,8 +25,8 @@ class CMSKategoriController extends \CoreController {
         ->showColumns('nama_kategori', 'deskripsi_kategori', 'ufl')
         ->addColumn('action', function($md){
         	$id = "'".$this->encrypt($md->id_kategori)."'";
-        	return '<button type="button" onclick="ubah('.$id.')" class="btn btn-xs blue"><i class="fa fa-edit"></i> Edit</button>
-        			<button type="button" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_kategori.')" class="btn btn-xs red"><i class="fa fa-trash"></i> Hapus</button>';
+        	return '<button type="button" onclick="ubah('.$id.')" class="btn btn-xs cst-transparent tt-edit"><i class="fa fa-edit"></i></button>
+        			<button type="button" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_kategori.')" class="btn btn-xs cst-transparent tt-hapus"><i class="fa fa-trash"></i></button>';
         })
         ->searchColumns('nama_kategori')
         ->orderColumns('nama_kategori')

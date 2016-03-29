@@ -5,7 +5,9 @@ class CoreController extends \BaseController {
 	protected $layout 	= 'layout.admin_layout';
 
 	public $confirm_delete = "'Hapus Data Ini?'";
+
 	public $delete_message = "Data berhasil dihapus.";
+	
 	public $input_success = "Data berhasil disimpan.";
 	// protected $layout2 	= 'layout.visitor_layout';
 
@@ -33,11 +35,41 @@ class CoreController extends \BaseController {
 		return Crypt::decrypt($enc);
 	}
 
-	public function createImage($image = '')
+	public function makeImage($image = '')
 	{
-		return Image::make($image->getRealPath())->resize(1000, null, function($constraint){
+
+		return Image::make($image);
+
+	}
+
+	public function createImage($image = '', $opt = false, $sb_dir = '')
+	{
+		$img = $this->makeImage($image->getRealPath())->resize(1000, null, function($constraint){
 			$constraint->aspectRatio();
-		})->encode('data-url');
+		});
+
+		if(!empty($opt)){
+			return $img->encode('data-url');
+		}else{
+			$main_dir = public_path()."/uploaded_images/";
+			$sub_dir = $main_dir.$sb_dir;
+
+			if(!file_exists($sub_dir)){
+				mkdir($sub_dir);
+			}
+
+			$rand = str_random(10).'.jpg';
+			$img->save($sub_dir."/".$rand, 75);
+			return $rand;
+		}
+	}
+
+	public function destroyImage($image = '', $sb_dir = '')
+	{
+		$main_dir = public_path()."/uploaded_images/";
+		$sub_dir = $main_dir.$sb_dir;
+		File::delete($sub_dir."/".$image);
+
 	}
 
 	public function resizeImages($image)

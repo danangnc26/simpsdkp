@@ -14,6 +14,7 @@
 
 {{HTML::style('assets/global/plugins/select2/select2.css')}}
 {{HTML::style('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}
+{{HTML::style('assets/global/plugins/bootstrap-summernote/summernote.css')}}
 <!-- <link href="../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
@@ -44,3 +45,4 @@
         {{--HTML::script('assets/global/plugins/Magnific/jquery.js')--}}
         {{HTML::script('assets/global/plugins/Magnific/jquery.magnific-popup.min.js?v=1.0.0')}}
 <!-- MAGNIFIC -->
+

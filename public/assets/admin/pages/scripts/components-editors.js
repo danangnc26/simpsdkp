@@ -13,7 +13,11 @@ var ComponentsEditors = function () {
     }
 
     var handleSummernote = function () {
-        $('#summernote_1').summernote();
+        $('#summernote_1').summernote({
+             onImageUpload: function(files, editor, $editable) {
+              sendFile(files[0],editor,$editable);
+              }  
+        });
         //API:
         //var sHTML = $('#summernote_1').code(); // get code
         //$('#summernote_1').destroy(); // destroy

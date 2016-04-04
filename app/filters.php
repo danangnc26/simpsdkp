@@ -41,7 +41,9 @@ Route::filter('auth', function()
 });
 
 Route::filter('logged', function(){
-
+	if(Sentry::check()){
+		return Redirect::route('admin.dashboard');
+	}
 });
 
 // Route::filter('auth', function()

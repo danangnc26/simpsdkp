@@ -40,4 +40,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('PosModel', 'users_groups', 'user_id', 'id_pos');
 	}
 
+	public function post()
+	{
+		return $this->hasMany('CMSPostModel');
+	}
+
 }

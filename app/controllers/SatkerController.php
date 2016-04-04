@@ -33,11 +33,11 @@ class SatkerController extends \CoreController {
         ->addColumn('id_satker', function($md){
         	$id = "'".$this->encrypt($md->id_satker)."'";
         	return '
-        			<button href="'.route('admin.upt.satker.edit', 'id_satker='.$this->encrypt($md->id_satker)).'" type="button" style="margin-right:0px;" class="btn btn-xs blue ubah-satker">
-							<i class="fa fa-edit"></i> Edit
+        			<button href="'.route('admin.upt.satker.edit', 'id_satker='.$this->encrypt($md->id_satker)).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit">
+							<i class="fa fa-edit"></i> 
 					</button>
-        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_satker.')" type="button" style="margin-right:0px;" class="btn btn-xs red">
-							<i class="fa fa-trash"></i> Hapus
+        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_satker.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
+							<i class="fa fa-trash"></i>
 					</button>
 					';
 

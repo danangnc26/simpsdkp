@@ -43,11 +43,11 @@ class KapalpengawasController extends \CoreController {
         })
         ->addColumn('id_kapal_pengawas', function($md3){
         	$id = "'".$this->encrypt($md3->id_kapal_pengawas)."'";
-        	return '<button href="'.route('admin.upt.kapal_pengawas.edit', 'id_kapal_pengawas='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs blue ubah-kapal-pengawas">
-							<i class="fa fa-edit"></i> Edit
+        	return '<button href="'.route('admin.upt.kapal_pengawas.edit', 'id_kapal_pengawas='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit">
+							<i class="fa fa-edit"></i>
 					</button>
-        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_kapal_pengawas.')" type="button" style="margin-right:0px;" class="btn btn-xs red">
-							<i class="fa fa-trash"></i> Hapus
+        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_kapal_pengawas.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
+							<i class="fa fa-trash"></i>
 					</button>';
         })
         ->searchColumns('nama_kapal_pengawas')

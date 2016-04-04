@@ -15,6 +15,7 @@
 {{HTML::style('assets/global/plugins/select2/select2.css')}}
 {{HTML::style('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}
 {{HTML::style('assets/global/plugins/bootstrap-summernote/summernote.css')}}
+{{HTML::style('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}
 <!-- <link href="../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
@@ -45,4 +46,10 @@
         {{--HTML::script('assets/global/plugins/Magnific/jquery.js')--}}
         {{HTML::script('assets/global/plugins/Magnific/jquery.magnific-popup.min.js?v=1.0.0')}}
 <!-- MAGNIFIC -->
+
+<!-- JSTREE -->
+		{{HTML::style('assets/global/plugins/jstree/dist/themes/default/style.min.css')}}
+		{{HTML::script('assets/global/plugins/jstree/dist/jstree.min.js')}}
+		{{--HTML::script('assets/admin/pages/scripts/ui-tree.js')--}}
+<!-- JSTREE -->
 

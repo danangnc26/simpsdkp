@@ -14,7 +14,7 @@
 							null,
 							null,
 							null,
-							array('bSortable' => false, 'width' => '14%')
+							array('bSortable' => false, 'width' => '8%')
 						),
 						'order' => 
 							array(
@@ -29,6 +29,7 @@
 			)
 			->setCallbacks(
 				'fnDrawCallback', 'function ( oSettings ) {
+					cst_tooltip();
 					$(".ubah-kapal-pengawas").magnificPopup({
 					  type: "ajax"
 					});

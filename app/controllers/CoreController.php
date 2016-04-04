@@ -42,11 +42,15 @@ class CoreController extends \BaseController {
 
 	}
 
-	public function createImage($image = '', $opt = false, $sb_dir = '')
+	public function createImage($image = '', $opt = false, $sb_dir = '', $rz = null)
 	{
-		$img = $this->makeImage($image->getRealPath())->resize(1000, null, function($constraint){
-			$constraint->aspectRatio();
-		});
+		if($rz == null){
+			$img = $this->makeImage($image->getRealPath());
+		}else{
+			$img = $this->makeImage($image->getRealPath())->resize($rz, null, function($constraint){
+				$constraint->aspectRatio();
+			});
+		}
 
 		if(!empty($opt)){
 			return $img->encode('data-url');

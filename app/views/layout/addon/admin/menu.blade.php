@@ -1,11 +1,34 @@
 				<li>
 					<a href="{{route('admin.dashboard')}}">
-					<i class="icon-speedometer"></i>
+					<i class="fa fa-dashboard"></i>
 					<span class="title">Dashboard</span>
 					</a>
 				</li>
-				
-				<li id="data-menu" >
+				<li>
+					<a href="#">
+						<span class="caption-subject theme-font-color bold uppercase">Data Master</span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+					<i class="fa fa-anchor"></i>
+					<span class="title"> Data UPT</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						@if(empty(UPTModel::all()))
+						@else
+						@foreach(UPTModel::all() as $value)
+						<li>
+							<a href="{{route('admin.upt.manage', 'id_upt='.Crypt::encrypt($value->id_upt))}}">
+								{{$value->nama_upt}}
+							</a>
+						</li>
+						@endforeach
+						@endif
+					</ul>
+				</li>
+				<!-- <li id="data-menu" >
 					<a href="javascript:;">
 					<i class="icon-folder"></i>
 					<span class="title">Data</span>
@@ -55,6 +78,35 @@
 							</a>
 						</li>
 					</ul>
+				</li> -->
+				<li>
+					<a href="{{route('admin.dashboard')}}">
+					<i class="fa fa-compass"></i>
+					<span class="title">Data Operasi</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{route('admin.dashboard')}}">
+					<i class="fa fa-gear"></i>
+					<span class="title">Data Pelanggaran</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{route('admin.dashboard')}}">
+					<i class="fa fa-ship"></i>
+					<span class="title">Data Kapal</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{route('admin.dashboard')}}">
+					<i class="fa fa-rocket"></i>
+					<span class="title">Data Speedboat</span>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<span class="caption-subject theme-font-color bold uppercase">CMS Pages</span>
+					</a>
 				</li>
 				<li>
 					<a href="#">
@@ -64,25 +116,10 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="#">
+							<a href="{{route('admin.cms.post.index.all')}}">
 							<i class="icon-home"></i>
 							<span class="title">Pos</span>
-							<span class="arrow "></span>
 							</a>
-							<ul class="sub-menu">
-								<li>
-									<a href="{{route('admin.cms.post.index.all')}}">
-									<i class="icon-home"></i>
-										Semua
-									</a>
-								</li>
-								<li>
-									<a href="#">
-									<i class="icon-home"></i>
-										Draf
-									</a>
-								</li>
-							</ul>
 						</li>
 						<li>
 							<a href="#">

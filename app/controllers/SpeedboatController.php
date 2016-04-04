@@ -37,11 +37,11 @@ class SpeedboatController extends \CoreController {
         })
         ->addColumn('id_speedboat', function($md2){
         	$id = "'".$this->encrypt($md2->id_speedboat)."'";
-        	return '<button href="'.route('admin.upt.speedboat.edit', 'id_speedboat='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs blue ubah-speedboat">
-							<i class="fa fa-edit"></i> Edit
+        	return '<button href="'.route('admin.upt.speedboat.edit', 'id_speedboat='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit">
+							<i class="fa fa-edit"></i>
 					</button>
-        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_speedboat.')" type="button" style="margin-right:0px;" class="btn btn-xs red">
-							<i class="fa fa-trash"></i> Hapus
+        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_speedboat.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
+							<i class="fa fa-trash"></i>
 					</button>';
         })
         ->searchColumns('nama_speedboat')

@@ -3,7 +3,7 @@
 			<br>
 			{{ Datatable::table()
 			->setId('tbl_speedboat')
-		    ->addColumn('Nama Speedboat', 'Ukuran ( Meter )', 'Material Speedboat', '')
+		    ->addColumn('Nama Speedboat', 'Ukuran ( Meter )', 'Material Speedboat', 'Action')
 		    ->setOptions(
 				array(
 					'aoColumns' => 
@@ -11,7 +11,7 @@
 							null, 
 							null,
 							null,
-							array('bSortable' => false, 'width' => '14%')
+							array('bSortable' => false, 'width' => '8%')
 						),
 						'order' => 
 							array(
@@ -26,6 +26,7 @@
 			)
 			->setCallbacks(
 				'fnDrawCallback', 'function ( oSettings ) {
+					cst_tooltip();
 					$(".ubah-speedboat").magnificPopup({
 					  type: "ajax"
 					});

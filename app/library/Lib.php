@@ -13,6 +13,11 @@ Class Lib{
 
 	}
 
+	// public static function getUPT()
+	// {
+	// 	return UPTModel::all();
+	// }
+
 	public static function getListProvinsi($id_prov = '')
 	{
 		$d[''] = '';

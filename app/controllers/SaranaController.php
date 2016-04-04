@@ -37,11 +37,11 @@ class SaranaController extends \CoreController {
         ->showColumns('nama_sarana', 'jumlah_sarana', 'kondisi')
         ->addColumn('id_sarana', function($md){
         	$id = "'".$this->encrypt($md->id_pv_sarana)."'";
-        	return '<button href="'.route('admin.upt.sarana.edit', 'id_pv_sarana='.$this->encrypt($md->id_pv_sarana)).'" type="button" style="margin-right:0px;" class="btn btn-xs blue ubah-sarana">
-							<i class="fa fa-edit"></i> Edit
+        	return '<button href="'.route('admin.upt.sarana.edit', 'id_pv_sarana='.$this->encrypt($md->id_pv_sarana)).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit">
+							<i class="fa fa-edit"></i>
 					</button>
-        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_sarana.')" type="button" style="margin-right:0px;" class="btn btn-xs red">
-							<i class="fa fa-trash"></i> Hapus
+        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_sarana.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
+							<i class="fa fa-trash"></i>
 					</button>';
 
         })

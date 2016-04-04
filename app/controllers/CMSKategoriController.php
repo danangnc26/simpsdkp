@@ -21,8 +21,16 @@ class CMSKategoriController extends \CoreController {
 
 	public function getListKategori()
 	{
-		return Datatable::collection($this->kategori->all())
-        ->showColumns('nama_kategori', 'deskripsi_kategori', 'ufl')
+		return Datatable::collection($this->kategori->with('parent')->get())
+		->addColumn('nama_kategori', function($md2){
+			if($md2->parent == null){
+				$k = $md2->nama_kategori;
+			}else{
+				$k = $md2->parent->nama_kategori.' &#187; '.$md2->nama_kategori;
+			}
+			return $k;
+		})
+        ->showColumns('deskripsi_kategori', 'ufl')
         ->addColumn('action', function($md){
         	$id = "'".$this->encrypt($md->id_kategori)."'";
         	return '<button type="button" onclick="ubah('.$id.')" class="btn btn-xs cst-transparent tt-edit"><i class="fa fa-edit"></i></button>
@@ -59,6 +67,7 @@ class CMSKategoriController extends \CoreController {
 			$this->kategori->nama_kategori 			= $input['nama_kategori'];
 			$this->kategori->deskripsi_kategori		= $input['deskripsi_kategori'];
 			$this->kategori->ufl 					= $input['ufl'];
+			$this->kategori->kategori_utama			= $input['sub_kategori'];
 			$this->kategori->save();
 
 			$respon = ['status' => true, 'msg' => $this->input_success];
@@ -113,6 +122,7 @@ class CMSKategoriController extends \CoreController {
 			$update->nama_kategori 			= $input['nama_kategori'];
 			$update->deskripsi_kategori		= $input['deskripsi_kategori'];
 			$update->ufl 					= $input['ufl'];
+			$update->kategori_utama			= $input['sub_kategori'];
 			$update->save();
 
 			$respon = ['status' => true, 'msg' => $this->input_success];

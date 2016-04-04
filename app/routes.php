@@ -10,10 +10,13 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::group(['before' => 'logged'], function(){
 
-Route::get('login', ['as' => 'users.login', function(){
-		return View::make('misc.users.login2');
-}]);
+	Route::get('login', ['as' => 'users.login', function(){
+			return View::make('misc.users.login_page');
+	}]);
+
+});
 
 
 Route::post('authenticate', ['as' => 'users.authenticate', 'uses' => 'UsersController@store']);
@@ -151,8 +154,11 @@ Route::group(['before' => 'auth'], function(){
 	//Post
 	$cms_post = 'CMSPostController@';
 	Route::get('admin/cms/index', ['as' => 'admin.cms.post.index.all', 'uses' => $cms_post.'index']);
+	Route::get('admin/cms/api', ['as' => 'admin.cms.post.api.all', 'uses' => $cms_post.'getPostDataTable']);
 	Route::get('admin/cms/create', ['as' => 'admin.cms.post.create', 'uses' => $cms_post.'create']);
 	Route::post('admin/cms/save', ['as' => 'admin.cms.post.save', 'uses' => $cms_post.'store']);
+	Route::post('admin/cms/editor/uploadimg', ['as' => 'admin.cms.post.editor.upload', 'uses' => $cms_post.'uploadImg']);
+	Route::get('admin/cms/delete', ['as' => 'admin.cms.post.delete', 'uses' => $cms_post.'destroy']);
 
 	//Kategori
 	$cms_kategori = 'CMSKategoriController@';
@@ -218,8 +224,26 @@ Route::get('test', function(){
 });
 
 Route::get('test2', function(){
-	$a = SatkerModel::find(6);
-	return $a->image;
+	$d = CMSPostModel::with('kategori', 'author')->get();
+	return $d;
+	// foreach ($d as $key => $value) {
+	// 	foreach ($value->kategori as $key2 => $value2) {
+	// 		return $value2->nama_kategori;
+	// 	}
+	// }
+	// return CMSKategoriModel::with('parent')->where('id_kategori', '=', 8)->get();
+	// $kategori = CMSKategoriModel::all();
+	// foreach ($kategori as $key => $value) {
+	// 	if($value->kategori_utama == null){
+	// 		// if($value->kategori_utama != null){
+	// 			$d[$value->id_kategori] = $value->kategori_utama;
+	// 		// }
+	// 	}
+		
+			
+		
+	// }
+	// return $d;
 			/*$t_awal = 2011;
 			$t_akhir = 2016;
 			$selisih = $t_akhir - $t_awal;

@@ -12,7 +12,7 @@
 							null, 
 							null,
 							null,
-							array('bSortable' => false, 'width' => 130), 
+							array('bSortable' => false, 'width' => '8%'), 
 						),
 						'order' => 
 							array(
@@ -27,6 +27,7 @@
 			)
 			->setCallbacks(
 				'fnDrawCallback', 'function ( oSettings ) {
+					cst_tooltip();
 					$(".ubah-satker").magnificPopup({
 					  type: "ajax"
 					});

@@ -20,6 +20,10 @@
 					<small><i>Nama kategori yang akan ditampilkan pada url.</i></small>
 				</div>
 				<div class="form-group">
+					<label>Sub Kategori dari : </label>
+					{{Form::select('sub_kategori', Lib::listCMSKategoriUtama(), $value->kategori_utama, ['id' => 'sub_kategori', 'class' => 'form-control'])}}
+				</div>
+				<div class="form-group">
 					<button class="btn green">Simpan Kategori</button>
 					<button onclick="kembali()" type="button" class="btn red">Batal</button>
 				</div>
@@ -36,12 +40,13 @@
 							"id_kategori"			: $('input[name=id_kategori]').val(),	
 							"nama_kategori"			: $('input[name=nama_kategori]').val(),	
 							"deskripsi_kategori"	: $('textarea[name=deskripsi_kategori]').val(),
-							"ufl"					: $('input[name=ufl]').val()
+							"ufl"					: $('input[name=ufl]').val(),
+							"sub_kategori"			: $('select[name=sub_kategori]').val()
 						},
 						function(data)
 						{
-							kembali();
 							tbl_kategori.fnReloadAjax();
+							kembali();
 							alert(data.msg);
 						},
 						'json'

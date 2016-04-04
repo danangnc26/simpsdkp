@@ -31,7 +31,8 @@
 						{
 							"nama_kategori"			: $('input[name=nama_kategori]').val(),	
 							"deskripsi_kategori"	: $('textarea[name=deskripsi_kategori]').val(),
-							"ufl"					: $('input[name=ufl]').val()
+							"ufl"					: $('input[name=ufl]').val(),
+							"sub_kategori"			: $('select[name=sub_kategori]').val()
 						},
 						function(data)
 						{

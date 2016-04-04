@@ -50,7 +50,8 @@
 {{--HTML::script('assets/global/plugins/amcharts/amstockcharts/amstock.js')--}}
 <!-- CHART -->
 @endif
-
+{{HTML::script('assets/global/plugins/moment.min.js')}}
+{{HTML::script('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}
 
 
 
@@ -60,6 +61,7 @@ $(document).ready(function() {
 	Layout.init(); // init layout
 	ComponentsPickers.init();
 	ComponentsEditors.init();
+	// UITree.init();
 
 
    $('#data-menu').attr('class', 'active');

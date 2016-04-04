@@ -10,11 +10,62 @@
 	<div class="portlet-body">
 		<div class="row">
 			<div class="col-md-12">
+				<style type="text/css">
+				.table-scrollable{
+					border:none;
+					/*border-color: #fff;*/
+				}
+				</style>
 				<a href="{{route('admin.cms.post.create')}}">
 					<button type="button" class="btn green">
 						<i class="fa fa-plus"></i> Buat Baru
 					</button>
 				</a>
+				<br>
+				<br>
+				{{ Datatable::table()
+				->setId('tbl_post')
+				->setClass('table table-striped table-hover')
+			    ->addColumn('<input type="checkbox" value="1" name="post_check[]"/>', 'Judul',  'Author', 'Kategori', 'Label', 'Tanggal')
+			    ->setOptions(
+					array(
+						'aoColumns' => 
+							array(
+								array('bSortable' => false, 'width' => 10), 
+								null, 
+								null, 
+								array('bSortable' => false), 
+								array('bSortable' => false), 
+								array('bSortable' => false, 'width' => 150), 
+							),
+							'order' => 
+								array(
+									array(1, 'asc')
+							    ),
+							'lengthMenu' =>
+								array(
+									array(5, 10, 50, 100, -1),
+									array(5, 10, 50, 100, 'All')
+								)
+					)
+				)
+				->setCallbacks(
+					'fnDrawCallback', 'function ( oSettings ) {
+						cst_tooltip();
+						Metronic.init();
+
+						$( "tbody tr" ).hover(
+						 function() {
+						    $(this).find("div.mn").show();
+						  }, function() {
+						    $(this).find("div.mn").hide();
+						  }
+						);
+
+					}'
+				)
+			    ->setUrl(route('admin.cms.post.api.all'))
+			    ->render() }}
 			</div>
 		</div>
 		<br>
@@ -25,4 +76,14 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	function hapus(a, b, c){
+		if(confirm(b)){
+			$.get(c + a, function(d){
+				tbl_post.fnReloadAjax();
+				alert(d.msg);
+			});
+		}
+	}
+</script>
 @stop

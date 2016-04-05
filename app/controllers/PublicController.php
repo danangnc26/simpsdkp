@@ -1,6 +1,14 @@
 <?php
 
-class PublicController extends \BaseController {
+class PublicController extends \CoreController {
+
+
+	protected $layout = 'layout.visitor_layout';
+
+	public function layout()
+	{
+		return $this->layout;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -10,7 +18,7 @@ class PublicController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$this->layout()->content = View::make('page.public.content');
 	}
 
 	/**
@@ -42,9 +50,34 @@ class PublicController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function findIt($opt = '', $str = '')
 	{
-		//
+		return CMSKategoriModel::with('post')->where($opt, '=', $str)->get();	
+	}
+
+	public function category($category)
+	{
+		$content = $this->findIt('nama_kategori', Lib::replaceString($category, true));
+		// $try1 = $this->findIt('nama_kategori', Lib::replaceString($category));
+		// if(empty($try1) && count($try1) == 0){
+		// 	$try2 = $this->findIt('kategori_utama', Lib::replaceString($category));
+		// 	if(empty($try2) && count($try2) == 0){
+		// 		$content = null;
+		// 	}else{
+		// 		$content = $try2;
+		// 	}
+		// }else{
+		// 	$content = $try1;
+		// }
+		
+		$this->layout()->content = View::make('page.public.category')->with(['content' => $content]);
+	}
+
+	public function show($nama_artikel)
+	{
+		$artikel = CMSPostModel::where('judul_post', '=', Lib::replaceString($nama_artikel, true))->get();
+		$this->layout()->content = View::make('page.public.content')->with(['data_artikel' => $artikel]);
+
 	}
 
 	/**

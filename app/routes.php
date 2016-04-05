@@ -201,6 +201,10 @@ Route::get('tesindex', function(){
 Route::get('tescontent', function(){
 	return View::make('page.public.content');
 });
+$public = 'PublicController@';
+Route::get('/', ['as' => 'public.visitor.home', 'uses' => $public.'index']);
+Route::get('konten/{nama_artikel}', ['as' => 'public.visitor.showContent', 'uses' => $public.'show']);
+Route::get('kategori/{kategori}', ['as' => 'public.visitor.showCategory', 'uses' => $public.'category']);
 # /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
 
 
@@ -224,8 +228,35 @@ Route::get('test', function(){
 });
 
 Route::get('test2', function(){
-	$d = CMSPostModel::with('kategori', 'author')->get();
-	return $d;
+	$kategori = CMSKategoriModel::with('post')->where('nama_kategori', '=', 'kapal pengawas')->get();
+	return $kategori;
+
+
+
+
+
+	// $data = CMSKategoriModel::all();
+	// foreach ($data as $key => $value) {
+	// 	if($value->kategori_utama == null){
+	// 		$d[] = ['id_kategori' => $value->id_kategori, 'nama_kategori' => $value->nama_kategori];
+	// 	}
+	// }
+
+	// foreach ($data as $key2 => $value2) {
+	// 	if($value2->kategori_utama != null){
+	// 		$d2[] = ['id_kategori' => $value2->id_kategori, 'kategori_utama' => $value2->kategori_utama, 'nama_kategori' => $value2->nama_kategori];
+	// 	}
+	// }
+	// foreach ($d as $k2 => $v2) {
+	// 	echo $v2['nama_kategori'].'<br>';
+	// 	foreach ($d2 as $k => $v1) {
+	// 		if($v1['kategori_utama'] == $v2['id_kategori']){
+	// 			echo '-'.$v1['nama_kategori'].'<br>';
+	// 		}
+	// 	}
+	// }
+
+	// return $d2;
 	// foreach ($d as $key => $value) {
 	// 	foreach ($value->kategori as $key2 => $value2) {
 	// 		return $value2->nama_kategori;

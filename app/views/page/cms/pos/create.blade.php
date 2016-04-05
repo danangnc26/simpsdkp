@@ -17,8 +17,11 @@
 			<div class="col-md-9">
 				{{Form::text('judul_pos', null, ['id' => 'judul_pos', 'class' => 'form-control', 'required' => '', 'placeholder' => 'Judul Pos'])}}
 				<br	/>
+				<label>Gambar Utama : </label>
+				{{Form::file('gambar_utama', ['class' => 'form-control', 'id' => 'gambar_utama'])}}
+				<br	/>
 				{{--Form::textarea('editor_pos', null, ['id' => 'editor_pos', 'class' => '', 'style' => 'width:100%', 'rows' => '0', 'cols' => '0'])--}}
-				<textarea name="editor_pos" id="summernote_1"></textarea>
+				<textarea style="display:none;" name="editor_pos" id="summernote_1"></textarea>
 			</div>
 		
 			<div class="col-md-3">
@@ -74,12 +77,33 @@
 									</div>
 									<div id="collapse_3" class="panel-collapse collapse" aria-expanded="true">
 										<div class="panel-body">
-											@if(empty($kategori))
+										
+											@if(empty($kategori) || count($kategori) == 0)
 											@else
-											@foreach($kategori as $ka)												
+											<?php
+											foreach ($kategori as $key => $value) {
+												if($value->kategori_utama == null){
+													$k[] = ['id_kategori' => $value->id_kategori, 'nama_kategori' => $value->nama_kategori];
+												}
+											}
+
+											foreach ($kategori as $key2 => $value2) {
+												if($value2->kategori_utama != null){
+													$k2[] = ['id_kategori' => $value2->id_kategori, 'kategori_utama' => $value2->kategori_utama, 'nama_kategori' => $value2->nama_kategori];
+												}
+											}
+											?>
+											@foreach($k as $v1)
 												<li style="list-style-type:none;">
-													<input type="checkbox" class="form-control" name="kategori_pos[]" value="{{$ka->id_kategori}}"> {{$ka->nama_kategori}}
-												</li>												
+													<input type="checkbox" class="form-control" name="kategori_pos[]" value="{{$v1['id_kategori']}}"> {{$v1['nama_kategori']}}
+												</li>
+												@foreach($k2 as $v2)
+													@if($v2['kategori_utama'] == $v1['id_kategori'])
+													<li style="list-style-type:none; margin-left:20px;">
+														<input type="checkbox" class="form-control" name="kategori_pos[]" value="{{$v2['id_kategori']}}"> {{$v2['nama_kategori']}}
+													</li>
+													@endif
+												@endforeach									
 											@endforeach
 											@endif
 										</div>
@@ -98,6 +122,18 @@
 										</div>
 									</div>
 								</div>
+								<div class="row" style="margin-top:20px;">
+									<div class="col-md-7">
+									<label>
+									<input checked type="radio" id="publikasi" class="form-control" name="opt_publikasi" value="1"> Publikasikan
+									</label>		
+									</div>
+									<div class="col-md-5">
+									<label>
+									<input type="radio" id="draft" class="form-control" name="opt_publikasi" value="0"> Draft
+									</label>	
+									</div>
+								</div>
 				</div>				
 			</div>
 		</div>
@@ -105,7 +141,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<button class="btn green"><i class="fa fa-send"></i> Publikasikan</button>
-				<button type="button" class="btn blue"><i class="fa fa-save"></i> Simpan</button>
+				<!-- <button type="button" class="btn blue"><i class="fa fa-save"></i> Simpan</button> -->
 				<button type="button" class="btn yellow"><i class="fa fa-eye"></i> Pratinjau</button>
 				<button onclick="location.replace('{{route('admin.cms.post.index.all')}}')" type="button" class="btn red"><i class="fa fa-close"></i> Tutup</button>
 			</div>
@@ -168,12 +204,20 @@
 		    checked_kat.push(parseInt($(this).val()));
 		});
 
+		 
+
 		var formData = new FormData();
+		$.each($('input[name=gambar_utama]')[0].files, function(i, file) {
+		     formData.append('gambar_utama', file);
+		 });
 		formData.append('judul_pos', $('input[name=judul_pos]').val());
+		// formData.append('gambar_utama', file_gambar_utama);
 		formData.append('content', $('#summernote_1').code()/*.replace(/<\/?[^>]+(>|$)/g, "")*/);
 		formData.append('tanggal', wkt);
-		formData.append('status', 1);
-		formData.append('kategori_pos', JSON.stringify(checked_kat));
+		formData.append('status', $("input[name=opt_publikasi]:checked").val());
+		if(checked_kat.length > 0){
+			formData.append('kategori_pos', JSON.stringify(checked_kat));
+		}
 
 		$.ajax({
 			type:'POST',

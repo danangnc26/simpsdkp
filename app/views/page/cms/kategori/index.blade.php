@@ -31,8 +31,8 @@
 							    ),
 							'lengthMenu' =>
 								array(
-									array(5, 10, 50, 100, -1),
-									array(5, 10, 50, 100, 'All')
+									array(10, 50, 100, -1),
+									array(10, 50, 100, 'All')
 								)
 					)
 				)

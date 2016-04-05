@@ -1,3 +1,5 @@
+var hos = window.location.protocol + "//" + window.location.host + '/';
+
 function include(scriptUrl) {
     document.write('<script src="' + scriptUrl + '"></script>');
 }
@@ -9,11 +11,11 @@ function isIE() {
 
 /* cookie.JS
  ========================================================*/
-include('assets/pbl/js/jquery.cookie.js');
+include(hos + 'assets/pbl/js/jquery.cookie.js');
 
 /* Easing library
  ========================================================*/
-include('assets/pbl/js/jquery.easing.1.3.js');
+include(hos + 'assets/pbl/js/jquery.easing.1.3.js');
 
 
 /* Stick up menus
@@ -22,7 +24,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('html');
     if (o.hasClass('desktop')) {
-        include('assets/pbl/js/tmstickup.js');
+        include(hos + 'assets/pbl/js/tmstickup.js');
 
         $(document).ready(function () {
             $('#stuck_container').TMStickUp({})
@@ -36,7 +38,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('html');
     if (o.hasClass('desktop')) {
-        include('assets/pbl/js/jquery.ui.totop.js');
+        include(hos + 'assets/pbl/js/jquery.ui.totop.js');
 
         $(document).ready(function () {
             $().UItoTop({easingType: 'easeOutQuart'});
@@ -50,7 +52,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('[data-equal-group]');
     if (o.length > 0) {
-        include('assets/pbl/js/jquery.equalheights.js');
+        include(hos + 'assets/pbl/js/jquery.equalheights.js');
     }
 })(jQuery);
 
@@ -60,8 +62,8 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('html');
     if (o.hasClass('desktop')) {
-        include('assets/pbl/js/jquery.mousewheel.min.js');
-        include('assets/pbl/js/jquery.simplr.smoothscroll.min.js');
+        include(hos + 'assets/pbl/js/jquery.mousewheel.min.js');
+        include(hos + 'assets/pbl/js/jquery.simplr.smoothscroll.min.js');
 
         $(document).ready(function () {
             $.srSmoothscroll({
@@ -85,7 +87,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 ;
 (function ($) {
     function include(url) {
-	document.write('<script src="assets/pbl/js/' + url + '"></script>');
+	document.write('<script src="'+hos+'assets/pbl/js/' + url + '"></script>');
 	return false;
 }
 	include('superfish.js');
@@ -102,7 +104,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('.resp-tabs');
     if (o.length > 0) {
-        include('assets/pbl/js/jquery.responsive.tabs.js');
+        include(hos + 'assets/pbl/js/jquery.responsive.tabs.js');
 
         $(document).ready(function () {
             o.easyResponsiveTabs();
@@ -116,7 +118,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
  ========================================================*/
 ;
 (function ($) {
-    include('assets/pbl/js/jquery.rd-navbar.js');
+    include(hos + 'assets/pbl/js/jquery.rd-navbar.js');
 })(jQuery);
 
 
@@ -127,7 +129,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('.accordion');
     if (o.length > 0) {
-        include('assets/pbl/js/jquery.ui.accordion.min.js');
+        include(hos + 'assets/pbl/js/jquery.ui.accordion.min.js');
 
         $(document).ready(function () {
             o.accordion({
@@ -148,7 +150,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
     var o = document.getElementById("google-map");
     if (o) {
         include('//maps.google.com/maps/api/js?sensor=false');
-        include('assets/pbl/js/jquery.rd-google-map.js');
+        include(hos + 'assets/pbl/js/jquery.rd-google-map.js');
 
         $(document).ready(function () {
             var o = $('#google-map');
@@ -169,7 +171,7 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 
     if ((navigator.userAgent.toLowerCase().indexOf('msie') == -1 ) || (isIE() && isIE() > 9)) {
         if (o.hasClass('desktop')) {
-            include('assets/pbl/js/wow.js');
+            include(hos + 'assets/pbl/js/wow.js');
 
             $(document).ready(function () {
                 new WOW().init();
@@ -184,8 +186,8 @@ include('assets/pbl/js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('#contact-form');
     if (o.length > 0) {
-        include('assets/pbl/js/modal.js');
-        include('assets/pbl/js/TMForm.js'); 
+        include(hos + 'assets/pbl/js/modal.js');
+        include(hos + 'assets/pbl/js/TMForm.js'); 
 
         if($('#contact-form .recaptcha').length > 0){
         	include('//www.google.com/recaptcha/api/assets/pbl/js/recaptcha_ajax.js');
@@ -247,7 +249,7 @@ document.write('<meta name="viewport" content="width=device-width,initial-scale=
 (function ($) {
     var o = $('.search-form');
     if (o.length > 0) {
-        include('assets/pbl/js/TMSearch.js');
+        include(hos + 'assets/pbl/js/TMSearch.js');
     }
 })(jQuery);  
 
@@ -384,9 +386,9 @@ $(function () {
 ;(function ($) {
     var o = $('.thumb');
     if (o.length > 0) {
-        include('assets/pbl/js/jquery.fancybox.js');
-        include('assets/pbl/js/jquery.fancybox-media.js');
-        include('assets/pbl/js/jquery.fancybox-buttons.js');
+        include(hos + 'assets/pbl/js/jquery.fancybox.js');
+        include(hos + 'assets/pbl/js/jquery.fancybox-media.js');
+        include(hos + 'assets/pbl/js/jquery.fancybox-buttons.js');
         $(document).ready(function () {
             o.fancybox();
         });
@@ -396,7 +398,7 @@ $(function () {
 /* Parallax
 =============================================*/
 ;(function ($) {
-    include('assets/pbl/js/jquery.rd-parallax.js');
+    include(hos + 'assets/pbl/js/jquery.rd-parallax.js');
 })(jQuery); 
 
 

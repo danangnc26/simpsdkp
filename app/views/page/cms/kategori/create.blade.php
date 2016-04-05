@@ -38,6 +38,7 @@
 						{
 							tbl_kategori.fnReloadAjax();
 							alert(data.msg);
+							$('#form-kategori').load("{{route('admin.cms.kategori.create')}}");
 							$('#frm-add-kategori')[0].reset();
 						},
 						'json'

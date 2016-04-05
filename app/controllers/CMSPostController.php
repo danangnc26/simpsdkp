@@ -35,6 +35,7 @@ class CMSPostController extends \CoreController {
         	return '<input type="checkbox" value="1" name="post_check[]"/>';
         })
         ->addColumn('judul_post', function($jdl){
+        	$view_page = "'".route('public.visitor.showContent', Lib::replaceString($jdl->judul_post))."'";
         	$id = "'".$this->encrypt($jdl->id_post)."'";
         	$judul = $jdl->judul_post;
         	$status = ($jdl->status_post == 1) ? '' : ' - <small><i>Draft</i></small>';
@@ -43,7 +44,7 @@ class CMSPostController extends \CoreController {
         			 <small> 
         			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_post.')" class="btn btn-xs cst-transparent tt-edit"><i class="fa fa-edit"></i></button>
         			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_post.')" class="btn btn-xs cst-transparent tt-hapus"><i class="fa fa-trash"></i></button>
-        			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_post.')" class="btn btn-xs cst-transparent tt-hapus"><i class="fa fa-eye"></i></button>
+        			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="location.replace('.$view_page.')" class="btn btn-xs cst-transparent tt-lihat"><i class="fa fa-eye"></i></button>
         			 </small>
         			 </div>';
         	return $judul.$status.$menu;
@@ -52,10 +53,15 @@ class CMSPostController extends \CoreController {
         	return $aut->author->first_name;
         })
         ->addColumn('kategori', function($kat){
-        	foreach ($kat->kategori as $key => $value) {
-        		$k[] = $value->nama_kategori;
+        	if($kat->kategori != null && count($kat->kategori) > 0){
+        		foreach ($kat->kategori as $key => $value) {
+	        		$k[] = $value->nama_kategori;
+	        	}
+	        	return '<small>'.implode(', ', $k).'</small>';
+        	}else{
+        		return '';	
         	}
-        	return '<small>'.implode(', ', $k).'</small>';
+        	
         })
         ->addColumn('label', function($lbl){
         	return 'Label';
@@ -97,17 +103,23 @@ class CMSPostController extends \CoreController {
 			$this->post->content_post 	= $input['content'];
 			$this->post->tanggal_insert	= $input['tanggal'];
 			$this->post->status_post 	= $input['status'];
+			if(isset($input['gambar_utama'])){
+			$this->post->gambar_utama	= $this->createImage($input['gambar_utama'], false, 'gambar_utama');		
+			}
 			$this->post->updated_at 	= null;
+
 			$this->post->save();
 			$pos_id = $this->post->id_post;
 
 
-			$k = json_decode($input['kategori_pos']);
-			foreach ($k as $key => $kt) {
-				$d[] = ['id_kategori' => $kt];
+			if(isset($input['kategori_pos'])){
+				$k = json_decode($input['kategori_pos']);
+				foreach ($k as $key => $kt) {
+					$d[] = ['id_kategori' => $kt];
+				}
+				
+				$this->post->kategori()->attach($d);
 			}
-			
-			$this->post->kategori()->attach($d);
 
 			$respon = ['status' => true, 'msg' => $this->input_success];
 

@@ -106,6 +106,8 @@ class CoreController extends \BaseController {
 			return $used_id;
 	}
 
+	
+
 	// public function visitor_layout()
 	// {
 

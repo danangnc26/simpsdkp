@@ -117,7 +117,7 @@
 					<ul class="sub-menu">
 						<li>
 							<a href="{{route('admin.cms.post.index.all')}}">
-							<i class="icon-home"></i>
+							<i class="fa fa-archive"></i>
 							<span class="title">Pos</span>
 							</a>
 						</li>
@@ -129,8 +129,14 @@
 						</li>
 						<li>
 							<a href="{{route('admin.cms.kategori.index')}}">
-							<i class="icon-home"></i>
+							<i class="fa fa-list-ul"></i>
 								Kategori
+							</a>
+						</li>
+						<li>
+							<a href="{{route('admin.cms.kategori.index')}}">
+							<i class="fa fa-picture-o"></i>
+								Slider
 							</a>
 						</li>
 					</ul>

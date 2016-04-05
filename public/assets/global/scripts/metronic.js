@@ -978,4 +978,5 @@ function cst_tooltip()
 {
     $(".tt-edit").tooltip({title: "Edit"});
     $(".tt-hapus").tooltip({title: "Hapus"});
+    $(".tt-lihat").tooltip({title: "Lihat"});
 }

@@ -52,7 +52,7 @@
 @endif
 {{HTML::script('assets/global/plugins/moment.min.js')}}
 {{HTML::script('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}
-
+{{HTML::script('assets/global/plugins/customfileinput/js/custom-file-input.js')}}
 
 
 <script>

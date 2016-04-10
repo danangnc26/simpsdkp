@@ -35,7 +35,7 @@ class CMSPostController extends \CoreController {
         	return '<input type="checkbox" value="1" name="post_check[]"/>';
         })
         ->addColumn('judul_post', function($jdl){
-        	$view_page = "'".route('public.visitor.showContent', Lib::replaceString($jdl->judul_post))."'";
+        	$view_page = "window.open('".route('public.visitor.showContent', Lib::replaceString($jdl->judul_post))."')";
         	$id = "'".$this->encrypt($jdl->id_post)."'";
         	$judul = $jdl->judul_post;
         	$status = ($jdl->status_post == 1) ? '' : ' - <small><i>Draft</i></small>';
@@ -44,7 +44,7 @@ class CMSPostController extends \CoreController {
         			 <small> 
         			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_post.')" class="btn btn-xs cst-transparent tt-edit"><i class="fa fa-edit"></i></button>
         			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_post.')" class="btn btn-xs cst-transparent tt-hapus"><i class="fa fa-trash"></i></button>
-        			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="location.replace('.$view_page.')" class="btn btn-xs cst-transparent tt-lihat"><i class="fa fa-eye"></i></button>
+        			 <button type="button" style="font-size:0.86em; margin-right:0px;" onclick="'.$view_page.'" class="btn btn-xs cst-transparent tt-lihat"><i class="fa fa-eye"></i></button>
         			 </small>
         			 </div>';
         	return $judul.$status.$menu;
@@ -111,7 +111,7 @@ class CMSPostController extends \CoreController {
 			$this->post->save();
 			$pos_id = $this->post->id_post;
 
-
+			#INSERT KATEGORI
 			if(isset($input['kategori_pos'])){
 				$k = json_decode($input['kategori_pos']);
 				foreach ($k as $key => $kt) {
@@ -121,7 +121,52 @@ class CMSPostController extends \CoreController {
 				$this->post->kategori()->attach($d);
 			}
 
-			$respon = ['status' => true, 'msg' => $this->input_success];
+			#LAMPIRAN
+			$d2 = [];
+			for ($i=1; $i < 6; $i++) { 
+				if(Input::file('lampiran_tambahan_lm_'.$i) != null){
+					$fil = Input::file('lampiran_tambahan_lm_'.$i);
+					$fil_name = $fil->getClientOriginalName();
+					$fil_path = $fil->getRealPath();
+					$this->moveFile($fil, $fil_name, 'lampiran_pos');
+					$d2[] = ['id_post' => $pos_id, 'nama_lampiran' => $fil_name];
+				}
+			}
+			if($d2 != null){
+				$this->post->lampiran()->insert($d2);	
+			}
+
+			#LABEL
+			$d3 = [];
+			$d_label = new CMSLabelModel();
+			$lbl = explode(',', str_replace('', '', $input['label']));
+			$lbl_data = $d_label->whereIn('nama_label', $lbl)->get();
+			foreach ($lbl_data as $k => $value) {
+
+				if (in_array($value->nama_label, $lbl)) {
+				
+					$d3[] = ['id_label' => $value->id_label, 'id_post' => $pos_id];
+
+					if(($key = array_search($value->nama_label, $lbl)) !== false) {
+					    unset($lbl[$key]);
+					}
+				}
+			}
+
+			if($lbl != null){
+				// for ($i=0; $i < sizeof($lbl); $i++) { 
+				foreach ($lbl as $v_l) {
+					$ins_lbl[] = ['nama_label' => str_replace(' ', '', $v_l)];	
+				}
+				$d_label->insert($ins_lbl);
+			}
+
+			if($d3 != null){
+				$this->post->label()->attach($d3);
+			}
+
+			$respon = ['status' => true, 'msg' => $this->input_success, 'url' => route('admin.cms.post.index.all')];
+			
 
 			return Response::json($respon);
 

@@ -66,7 +66,11 @@ class CMSKategoriController extends \CoreController {
 
 			$this->kategori->nama_kategori 			= $input['nama_kategori'];
 			$this->kategori->deskripsi_kategori		= $input['deskripsi_kategori'];
-			$this->kategori->ufl 					= $input['ufl'];
+			if($input['ufl'] == null){
+				$this->kategori->ufl 					= strtolower($input['nama_kategori']);
+			}else{
+				$this->kategori->ufl 					= strtolower($input['ufl']);	
+			}
 			if($input['sub_kategori'] != null){
 				$this->kategori->kategori_utama			= $input['sub_kategori'];
 			}
@@ -123,7 +127,11 @@ class CMSKategoriController extends \CoreController {
 
 			$update->nama_kategori 			= $input['nama_kategori'];
 			$update->deskripsi_kategori		= $input['deskripsi_kategori'];
-			$update->ufl 					= $input['ufl'];
+			if($input['ufl'] == null){
+				$update->ufl 					= strtolower($input['nama_kategori']);
+			}else{
+				$update->ufl 					= strtolower($input['ufl']);
+			}
 			if($input['sub_kategori'] != null){
 				$update->kategori_utama			= $input['sub_kategori'];
 			}	

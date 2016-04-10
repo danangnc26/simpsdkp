@@ -52,7 +52,11 @@ class PublicController extends \CoreController {
 	 */
 	public function findIt($opt = '', $str = '')
 	{
-		return CMSKategoriModel::with('post')->where($opt, '=', $str)->get();	
+		// return CMSKategoriModel::with('post')->where($opt, '=', $str)->get();	
+
+		return CMSPostModel::whereHas('kategori', function($q) use ($str){
+					$q->where('cms_tb_kategori.nama_kategori', '=', $str);
+				})->with('kategori')->paginate(5);
 	}
 
 	public function category($category)
@@ -75,7 +79,7 @@ class PublicController extends \CoreController {
 
 	public function show($nama_artikel)
 	{
-		$artikel = CMSPostModel::where('judul_post', '=', Lib::replaceString($nama_artikel, true))->get();
+		$artikel = CMSPostModel::with('kategori', 'label', 'lampiran')->where('judul_post', '=', Lib::replaceString($nama_artikel, true))->get();
 		$this->layout()->content = View::make('page.public.content')->with(['data_artikel' => $artikel]);
 
 	}

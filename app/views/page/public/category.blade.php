@@ -8,28 +8,27 @@
             <div class="container">
                 <div class="row">
                 	<div class="col-md-8">
+
                 	@if(empty($content) && count($content) == 0)
                 	@else
-                	@foreach($content as $val_kat)
+                	@foreach($content as $val_con)
                 		<div class="row">
                 			<div class="col-md-12">
+                			@foreach($val_con->kategori as $val_kat)
+                				@if($val_kat->kategori_utama == null)
+                				@else
                 				<h2>{{$val_kat->nama_kategori}}</h2>
                 				<small>
                 				<a href="#">Home</a>
                 				 >> 
                 				 <a href="{{route('public.visitor.showCategory', Lib::replaceString($val_kat->nama_kategori))}}">{{$val_kat->nama_kategori}}</a>
                 				 </small>
+                				@endif
+                			@endforeach
                 			</div>
                 		</div>
                 		<!--  -->
-                		<!-- PAGINATION -->
-                		<a href="#" class="btn btn-primary">1</a>
-                		<a href="#" class="btn btn-primary">2</a>
-                		<a href="#" class="btn btn-primary">3</a>
-                		<a href="#" class="btn btn-primary">4</a>
-                		<a href="#" class="btn btn-primary">5</a>
-                		<!-- PAGINATION -->
-                		@foreach($val_kat->post as $val_con)
+                		
                 		<div class="row">
                 			<div class="col-md-12">
 	                			<div class="row">
@@ -54,23 +53,22 @@
 		                					Selengkapnya &#187;
 		                				</a>
 		                			</div>
-
 		               			</div>
 	                		</div>
                 		</div>
                 		<hr class="cst-line"></hr>
-                		@endforeach
                 		
                 		<!-- PAGINATION -->
-                		<a href="#" class="btn btn-primary">1</a>
+                		<!-- <a href="#" class="btn btn-primary">1</a>
                 		<a href="#" class="btn btn-primary">2</a>
                 		<a href="#" class="btn btn-primary">3</a>
                 		<a href="#" class="btn btn-primary">4</a>
-                		<a href="#" class="btn btn-primary">5</a>
+                		<a href="#" class="btn btn-primary">5</a> -->
                 		<!-- PAGINATION -->
                 		<!--  -->
                 	@endforeach
                 	@endif
+                	{{$content->links()}}
                 	</div>
                 	<div class="col-md-4" >
                 		@include('page.public.addon.sidebar')

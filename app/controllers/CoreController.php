@@ -83,6 +83,17 @@ class CoreController extends \BaseController {
 		});
 	}
 
+	public function moveFile($file = '', $fil_name = '', $dir = '')
+	{
+		$main_dir = public_path()."/uploaded_files/";
+		$sub_dir = $main_dir.$dir;
+		if(!file_exists($sub_dir)){
+			mkdir($sub_dir);
+		}
+
+		$file->move($sub_dir, $fil_name);
+	}
+
 	public function getImageBlob($image)
 	{
 		return $image->encode('data-url');

@@ -10,12 +10,12 @@
 					{{Form::textarea('deskripsi_kategori', null, ['id' => 'deskripsi_kategori', 'class' => 'form-control', 'rows' => '4', 'style' => 'resize:none;'])}}
 				</div>
 				<div class="form-group">
-					<label>UFL : </label>
-					{{Form::text('ufl', null, ['id' => 'ufl', 'class' => 'form-control', 'required' => ''])}}
+					<label>UFL : </label><small class="pull-right">* Opsional</small>
+					{{Form::text('ufl', null, ['id' => 'ufl', 'class' => 'form-control'])}}
 					<small><i>Nama kategori yang akan ditampilkan pada url.</i></small>
 				</div>
 				<div class="form-group">
-					<label>Sub Kategori dari : </label>
+					<label>Kategori Induk : </label>
 					{{Form::select('sub_kategori', Lib::listCMSKategoriUtama(), null, ['id' => 'sub_kategori', 'class' => 'form-control'])}}
 				</div>
 				<div class="form-group">

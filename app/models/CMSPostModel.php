@@ -15,4 +15,14 @@ class CMSPostModel extends \Eloquent {
     	return $this->belongsTo('User', 'user_id');
     }
 
+    public function lampiran()
+    {
+        return $this->hasMany('CMSLampiranModel', 'id_post');
+    }
+
+    public function label()
+    {
+        return $this->belongsToMany('CMSLabelModel', 'cms_tb_pivot_label_post', 'id_post', 'id_label');
+    }
+
 }

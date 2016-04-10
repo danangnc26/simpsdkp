@@ -51,6 +51,10 @@
         height: 1px;
         background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
     }
+    h2.judul_artikel{
+        /*text-transform: lowercase;*/
+        line-height: 1em;
+    }
     </style>
 </head>
 <body>

@@ -228,9 +228,31 @@ Route::get('test', function(){
 });
 
 Route::get('test2', function(){
-	$kategori = CMSKategoriModel::with('post')->where('nama_kategori', '=', 'kapal pengawas')->get();
-	return $kategori;
+	// return CMSLabelModel::whereIn('nama_label', ['tes', '2', '3'])->get();
 
+			$lbl = explode(',', 'tas,tes,tus');
+			$d3 = [];
+			$d_label = new CMSLabelModel();
+			$lbl = explode(',', $input['label']);
+			$lbl_data = $d_label->whereIn('nama_label', $lbl)->get();
+			foreach ($lbl_data as $k => $value) {
+
+				if (in_array($value->nama_label, $lbl)) {
+				
+					$d3[] = ['id_label' => $value->id_label, 'id_post' => $pos_id];
+
+					if(($key = array_search($value->nama_label, $lbl)) !== false) {
+					    unset($lbl[$key]);
+					}
+				}
+			}
+
+			if($lbl != null){
+				for ($i=0; $i < sizeof($lbl); $i++) { 
+					$ins_lbl[] = ['nama_label' => str_replace(' ', '', $lbl[$i])];	
+				}
+				$d_label->insert($ins_lbl);
+			}
 
 
 

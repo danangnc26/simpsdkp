@@ -16,7 +16,7 @@
 				</div>
 				<div class="form-group">
 					<label>UFL : </label>
-					{{Form::text('ufl', $value->ufl, ['id' => 'ufl', 'class' => 'form-control', 'required' => ''])}}
+					{{Form::text('ufl', $value->ufl, ['id' => 'ufl', 'class' => 'form-control'])}}
 					<small><i>Nama kategori yang akan ditampilkan pada url.</i></small>
 				</div>
 				<div class="form-group">

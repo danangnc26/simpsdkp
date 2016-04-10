@@ -331,10 +331,24 @@ Class Lib{
 
 	public static function replaceString($str = '', $read = false)
 	{
+		$e = ['_', ' '];
+		$r = [' ', '_'];
 		if($read){
-			return str_replace('-', ' ', $str);
+			// $e = ['-', '!','"','£','$','%','%','^','&','*','(',')','-','+','=','\\','/','[',']','{','}',';',':','@','#','~','<',',','>','.','?','|'];
+			
+			for ($i=0; $i < sizeof($r); $i++) { 
+				if(in_array($i, $e)){
+					return str_replace($e[$i], $r[$i], $str);
+				}
+			}
+			// return str_replace('-', ' ', $str);
 		}else{
-			return str_replace(' ', '-', $str);
+			for ($i=0; $i < sizeof($e); $i++) { 
+				if(in_array($i, $e)){
+					return str_replace($r[$i], $e[$i], $str);
+				}
+			}
+			// return str_replace(' ', '-', $str);
 		}
 	}
 

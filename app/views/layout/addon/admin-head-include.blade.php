@@ -53,3 +53,7 @@
 		{{--HTML::script('assets/admin/pages/scripts/ui-tree.js')--}}
 <!-- JSTREE -->
 
+<!-- CUSTOM FILE INPUT -->
+
+
+{{HTML::style('assets/global/plugins/customfileinput/css/component.css')}}

@@ -80,7 +80,7 @@
 					</ul>
 				</li> -->
 				<li>
-					<a href="{{route('admin.dashboard')}}">
+					<a href="{{route('admin.operasi.index')}}">
 					<i class="fa fa-compass"></i>
 					<span class="title">Data Operasi</span>
 					</a>

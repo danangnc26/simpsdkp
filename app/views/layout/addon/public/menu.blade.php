@@ -3,7 +3,7 @@
         <div class="container">
             <div class="navbar-header">
                 <h1 class="navbar-brand">
-                    <a href="./">Sistem Informasi PSDKP </a>
+                    <a href="{{route('public.visitor.home')}}">Sistem Informasi PSDKP </a>
                 </h1>
             </div>
             <div class="navbar-left">

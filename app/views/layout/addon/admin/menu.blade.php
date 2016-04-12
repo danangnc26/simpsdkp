@@ -122,6 +122,12 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{route('admin.cms.post.index.all')}}">
+							<i class="fa fa-file"></i>
+							<span class="title">Pages</span>
+							</a>
+						</li>
+						<li>
 							<a href="#">
 							<i class="icon-home"></i>
 								Media
@@ -134,7 +140,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="{{route('admin.cms.kategori.index')}}">
+							<a href="{{route('admin.cms.slider.index')}}">
 							<i class="fa fa-picture-o"></i>
 								Slider
 							</a>

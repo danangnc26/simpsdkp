@@ -1,3 +1,58 @@
+
+                    <div class="col-md-12 col-sm-6 col-xs-6 text-left wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
+                        <div style="background:transparent;" class="block-icon">
+                            <div class="icon">
+                                <i class="fa fa-ship"></i>
+                            </div>
+                            <div class="block_caption">
+                                <h3 class="fw-b txt-clr1" style="color:#333333">Kapal Pengawas <br/> <span class="fw-n">
+                                   <small>Speedboat</small> </span></h3>
+                                <!-- <a href="#" class="btn-link">Learn more</a> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6 col-xs-6 text-left wow fadeIn" data-wow-duration="2s" data-wow-delay="0.4s">
+                        <div style="background:transparent;" class="block-icon">
+                            <div class="icon">
+                                <i class="fa fa-balance-scale"></i>
+                            </div>
+                            <div class="block_caption">
+                                <h3 class="fw-b txt-clr1" style="color:#333333">Tindak Pidana <br/> <span class="fw-n">
+                                    <small>Data Pelanggaran</small> </span></h3>
+                                <!-- <a href="#" class="btn-link">Learn more</a> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6 col-xs-6 clearboth text-left wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
+                        <div style="background:transparent;" class="block-icon">
+                            <div class="icon">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+                            <div class="block_caption">
+                                <h3 class="fw-b txt-clr1" style="color:#333333">Laporan Kegiatan <br/> <span class="fw-n">
+                                   <small>Bulanan, Tahunan</small> </span></h3>
+                                <!-- <a href="#" class="btn-link">Learn more</a> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6 col-xs-6 text-left wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
+                        <div style="background:transparent;" class="block-icon">
+                            <div class="icon">
+                                <i class="fa  fa-line-chart "></i>
+                            </div>
+                            <div class="block_caption">
+                                <h3 class="fw-b txt-clr1" style="color:#333333">Capaian IKU <br/> <span class="fw-n">
+                                    <small>Capaian Harian</small> </span></h3>
+                                <!-- <a href="#" class="btn-link">Learn more</a> -->
+                            </div>
+                        </div>
+                    </div>
+                
+
+
 				<!-- <h2 class="text-center">Categories</h2> -->
 				<?php
 				$kategori = CMSKategoriModel::all();
@@ -20,15 +75,17 @@
 				<ul class="content-list row">
 						@foreach($k as $v1)
 						<li class="col-md-12 col-sm-3 col-xs-6 wow fadeInRight" data-wow-duration="2s">
+						<a href="{{route('public.visitor.showCategory', Lib::replaceString($v1['nama_kategori']))}}">
 						<h5>{{$v1['nama_kategori']}}</h5>
+						</a>
 						<ul>
 							@foreach($k2 as $v2)
 								@if($v2['kategori_utama'] == $v1['id_kategori'])
-										<li><a href="{{route('public.visitor.showCategory', Lib::replaceString($v2['nama_kategori']))}}">{{$v2['nama_kategori']}}</a></li>
+										<li><a href="{{route('public.visitor.showCategory', ['category' => Lib::replaceString($v1['nama_kategori']), 'sub_category' => Lib::replaceString($v2['nama_kategori'])])}}">{{$v2['nama_kategori']}}</a></li>
 								@endif
 							@endforeach	
 						</ul>								
-						<a href="#" class="btn-link btn-link__mod">+ More</a>
+						<!-- <a href="#" class="btn-link btn-link__mod">+ More</a> -->
 						</li>
 						@endforeach
 						@endif

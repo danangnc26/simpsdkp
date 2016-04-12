@@ -59,9 +59,14 @@ class PublicController extends \CoreController {
 				})->with('kategori')->paginate(5);
 	}
 
-	public function category($category)
+	public function category($category, $sub_category = null)
 	{
-		$content = $this->findIt('nama_kategori', Lib::replaceString($category, true));
+		if($sub_category == null){
+			$f = $category;
+		}else{
+			$f = $sub_category;
+		}
+		$content = $this->findIt('nama_kategori', Lib::replaceString($f, true));
 		// $try1 = $this->findIt('nama_kategori', Lib::replaceString($category));
 		// if(empty($try1) && count($try1) == 0){
 		// 	$try2 = $this->findIt('kategori_utama', Lib::replaceString($category));
@@ -73,8 +78,28 @@ class PublicController extends \CoreController {
 		// }else{
 		// 	$content = $try1;
 		// }
-		
-		$this->layout()->content = View::make('page.public.category')->with(['content' => $content]);
+
+		// if(empty($content) && count($content) == 0){
+
+		// }else{
+			
+  //           foreach($content as $val_con){
+		// 		$k_2 = [];
+  //               foreach($val_con->kategori as $val_kat){
+	 //                if($val_kat->kategori_utama == null){
+	 //                }else{
+	 //                $k_2[] = '<h2>'.$val_kat->nama_kategori.'</h2>';
+	 //                $k_2[] =  '<small>';
+	 //                $k_2[] = '<a href="#">Home</a>';
+	 //               	$k_2[] = '>> ';
+	 //                $k_2[] = '<a href="'.route('public.visitor.showCategory', Lib::replaceString($val_kat->nama_kategori)).'">'.$val_kat->nama_kategori.'</a>';
+	 //                $k_2[] = '</small>';
+	 //            	}
+	 //            }
+  //           }
+		// }
+
+		$this->layout()->content = View::make('page.public.category')->with(['content' => $content, 'main' => $category, 'sub' => $sub_category]);
 	}
 
 	public function show($nama_artikel)

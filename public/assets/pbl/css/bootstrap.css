@@ -5400,7 +5400,8 @@ h2 + .index-list__mod {
   transition: 0.3s;
 }
 .content-list li:hover h5 {
-  background: #262626;
+  background: #26dac3;
+  color: #fff;
 }
 .content-list li ul,
 .content-list li .btn-link {

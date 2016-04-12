@@ -198,7 +198,7 @@ class UsersController extends \CoreController {
 	public function destroy()
 	{
 			Sentry::logout();
-			return Redirect::route('users.login');
+			return Redirect::route('public.visitor.home');
 	}
 
 }

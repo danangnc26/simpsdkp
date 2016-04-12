@@ -3,6 +3,33 @@
     =========================================================-->
     <header>
     	<ul class="cb-slideshow" style="z-index:-1;">
+        <style type="text/css">
+        <?php
+        if(Lib::getSliderImages() == null){
+
+        }else{
+        $i = 0;
+        foreach(Lib::getSliderImages() as $key => $value){
+        ?>
+        <?php
+        if($key == 0){
+        ?>
+        .cb-slideshow li span { 
+            background-image: url("<?php echo asset('uploaded_images/slider/'.$value->gambar_slider) ?>") ;
+        }
+        <?php
+        }else{
+        ?>
+        .cb-slideshow li:nth-child(<?php echo $key+1 ?>) span { 
+            background-image: url("<?php echo asset('uploaded_images/slider/'.$value->gambar_slider) ?>") ;
+        }
+        <?php
+        }
+        ?>
+        <?php
+        }}
+        ?>
+        </style>
             <li>
             	<span>Image 01</span>
             	<!-- <div>

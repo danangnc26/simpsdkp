@@ -352,20 +352,28 @@ Class Lib{
 		}
 	}
 
-	public static function limitString($string = '')
+	public static function limitString($string = '', $numb = '')
 	{
 		// strip tags to avoid breaking any html
 		$string = strip_tags($string);
 
-		if (strlen($string) > 500) {
+		if (strlen($string) > $numb) {
 
 		    // truncate string
-		    $stringCut = substr($string, 0, 500);
+		    $stringCut = substr($string, 0, $numb);
 
 		    // make sure it ends in a word so assassinate doesn't become ass...
 		    $string = substr($stringCut, 0, strrpos($stringCut, ' ')); 
 		}
-		echo $string;
+		echo $string.'...';
+	}
+	
+	public static function getSliderImages()
+	{
+
+		$data = CMSSliderModel::where('is_used', '=', 1)->get();
+		return $data;
+
 	}
 
 

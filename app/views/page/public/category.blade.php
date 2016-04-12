@@ -11,24 +11,30 @@
 
                 	@if(empty($content) && count($content) == 0)
                 	@else
-                	@foreach($content as $val_con)
+                	
                 		<div class="row">
                 			<div class="col-md-12">
-                			@foreach($val_con->kategori as $val_kat)
-                				@if($val_kat->kategori_utama == null)
-                				@else
-                				<h2>{{$val_kat->nama_kategori}}</h2>
-                				<small>
-                				<a href="#">Home</a>
-                				 >> 
-                				 <a href="{{route('public.visitor.showCategory', Lib::replaceString($val_kat->nama_kategori))}}">{{$val_kat->nama_kategori}}</a>
-                				 </small>
-                				@endif
-                			@endforeach
+                			<?php $s = ($sub == null) ? $main : $sub; ?>
+                			<h2>{{Lib::replaceString($s, true)}}</h2>
+	 		               	<small>
+	 		                <a href="{{route('public.visitor.home')}}">Home</a>
+	 		               	>> 
+	 		               	<a href="#">Kategori</a>
+	 		               	>> 
+	 		                <a href="{{route('public.visitor.showCategory', ['category' => $main])}}">
+	 		                	{{Lib::replaceString($main, true)}}
+	 		                </a>
+	 		                @if($sub != null)
+	 		               	 >> 
+	 		                <a href="{{route('public.visitor.showCategory', ['category' => $main, 'sub_category' => $sub])}}">
+	 		                	{{Lib::replaceString($sub, true)}}
+	 		                </a>
+	 		                @endif
+	 		                </small>
                 			</div>
                 		</div>
                 		<!--  -->
-                		
+                	@foreach($content as $val_con)	
                 		<div class="row">
                 			<div class="col-md-12">
 	                			<div class="row">
@@ -47,7 +53,7 @@
 		                					<h4>{{$val_con->judul_post}}</h4>
 		                				</a>
 		                				<p style="margin-top:10px;">
-		                					{{Lib::limitString($val_con->content_post)}}
+		                					{{Lib::limitString($val_con->content_post, 500)}}
 		                				</p>
 		                				<a href="{{route('public.visitor.showContent', Lib::replaceString($val_con->judul_post))}}" class="cst pull-right">
 		                					Selengkapnya &#187;

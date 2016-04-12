@@ -23,7 +23,7 @@ class CMSPostController extends \CoreController {
 
 	public function getPostDataTable()
 	{
-		return Datatable::collection($this->post->with('kategori')->get())
+		return Datatable::collection($this->post->with('kategori', 'label')->get())
 		// ->setRowId(function($row)
 		// {
 		// 	// for ($i=0; $i < count($row); $i++) { 
@@ -37,7 +37,7 @@ class CMSPostController extends \CoreController {
         ->addColumn('judul_post', function($jdl){
         	$view_page = "window.open('".route('public.visitor.showContent', Lib::replaceString($jdl->judul_post))."')";
         	$id = "'".$this->encrypt($jdl->id_post)."'";
-        	$judul = $jdl->judul_post;
+        	$judul = '<small>'.$jdl->judul_post.'</small>';
         	$status = ($jdl->status_post == 1) ? '' : ' - <small><i>Draft</i></small>';
         	$menu = '<br>
         			 <div style="display:none" class="mn">
@@ -50,7 +50,7 @@ class CMSPostController extends \CoreController {
         	return $judul.$status.$menu;
         })
         ->addColumn('author', function($aut){
-        	return $aut->author->first_name;
+        	return '<small>'.$aut->author->first_name.'</small>';
         })
         ->addColumn('kategori', function($kat){
         	if($kat->kategori != null && count($kat->kategori) > 0){
@@ -64,7 +64,14 @@ class CMSPostController extends \CoreController {
         	
         })
         ->addColumn('label', function($lbl){
-        	return 'Label';
+        	if($lbl->label != null && count($lbl->label) > 0){
+        		foreach ($lbl->label as $key => $value) {
+        			$l[] = $value->nama_label;
+        		}
+        		return '<small>'.implode(', ', $l).'</small>';
+        	}else{
+        		return '';
+        	}
         })
         ->addColumn('tanggal', function($tgl){
         	return ($tgl->status_post == 1) ? '<small>Dipublikasikan pada<br> '.Carbon::parse($tgl->tanggal_insert)->format('d/m/Y').'</small>' : '';
@@ -139,7 +146,11 @@ class CMSPostController extends \CoreController {
 			#LABEL
 			$d3 = [];
 			$d_label = new CMSLabelModel();
-			$lbl = explode(',', str_replace('', '', $input['label']));
+			$lb = explode(',', $input['label']);
+			$lbl = [];
+			foreach ($lb as $lb_v) {
+				$lbl[] = ltrim($lb_v);
+			}
 			$lbl_data = $d_label->whereIn('nama_label', $lbl)->get();
 			foreach ($lbl_data as $k => $value) {
 
@@ -156,7 +167,7 @@ class CMSPostController extends \CoreController {
 			if($lbl != null){
 				// for ($i=0; $i < sizeof($lbl); $i++) { 
 				foreach ($lbl as $v_l) {
-					$ins_lbl[] = ['nama_label' => str_replace(' ', '', $v_l)];	
+					$ins_lbl[] = ['nama_label' => ltrim($v_l)];	
 				}
 				$d_label->insert($ins_lbl);
 			}

@@ -34,9 +34,9 @@
 								array('bSortable' => false, 'width' => 10), 
 								null, 
 								null, 
-								array('bSortable' => false), 
-								array('bSortable' => false), 
-								array('bSortable' => false, 'width' => 150), 
+								array('bSortable' => false, 'width' => '14%'), 
+								array('bSortable' => false, 'width' => '16%'), 
+								array('bSortable' => false, 'width' => '13%'), 
 							),
 							'order' => 
 								array(
@@ -44,8 +44,8 @@
 							    ),
 							'lengthMenu' =>
 								array(
-									array(5, 10, 50, 100, -1),
-									array(5, 10, 50, 100, 'All')
+									array(10, 50, 100, -1),
+									array(10, 50, 100, 'All')
 								)
 					)
 				)

@@ -26,7 +26,6 @@
                                  >>
                                  @endforeach
                                  @endif
-                				  >> 
                 				  {{$value_artikel->judul_post}}
                 				 </small><br>
                 			</div>
@@ -34,12 +33,16 @@
 
 
                 		<!--  -->
+                        @if($value_artikel->gambar_utama == null)
+                        @else
                         <div class="co-md-12">
                             <img src="{{asset('uploaded_images/gambar_utama').'/'.$value_artikel->gambar_utama}}" width="100%">
-                            <hr>
+                            <hr class="cst-line"></hr>
                         </div>
+                        @endif
                 		{{$value_artikel->content_post}}
-                         @if($value_artikel->label == null)
+
+                                @if(empty($value_artikel->label) || count($value_artikel->label) == 0)
                                  @else
                                  <div class="pull-right">
                                  <i class="fa fa-tag"></i> : 
@@ -47,11 +50,11 @@
                                   {{$lb->nama_label}}, 
                                  @endforeach
                                  </div>
-                                 
-                        @endif
-                        <h5>Lampiran :</h5>
-                        @if($value_artikel->lampiran == null)
+                                 @endif
+                        
+                        @if(empty($value_artikel->lampiran) || count($value_artikel->lampiran) == 0)
                         @else
+                        <h5>Lampiran :</h5>
                         @foreach($value_artikel->lampiran as $lamp)
                         <i class="fa fa-file-pdf-o"></i> {{$lamp->nama_lampiran}}<br>
                         <!-- <i class="fa fa-file-excel-o"></i> Lampiran 2 <br>
@@ -59,7 +62,7 @@
                         <i class="fa fa-file"></i> Lampiran 4 -->
                         @endforeach
                         @endif
-                        <hr>
+                        <hr class="cst-line"></hr>
                 		<!--  -->
 
                 	@endforeach

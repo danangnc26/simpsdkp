@@ -149,7 +149,6 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('admin/grafik/bar/data/api', ['as' => 'admin.grafik.bar.api', 'uses' => 'AdminGlobalController@apiBar']);
 	Route::get('admin/grafik/pie', ['as' => 'admin.grafik.pie', 'uses' => 'AdminGlobalController@viewPie']);
 
-
 	#CMS
 	//Post
 	$cms_post = 'CMSPostController@';
@@ -169,6 +168,15 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('admin/cms/kategori/edit', ['as' => 'admin.cms.kategori.edit', 'uses' => $cms_kategori.'edit']);
 	Route::post('admin/cms/kategori/update', ['as' => 'admin.cms.kategori.update', 'uses' => $cms_kategori.'update']);
 	Route::get('admin/cms/kategori/delete', ['as' => 'admin.cms.kategori.delete', 'uses' => $cms_kategori.'destroy']);
+
+	//Slider
+	$cms_slider = 'CMSSliderController@';
+	Route::get('admin/slider/index', ['as' => 'admin.cms.slider.index', 'uses' => $cms_slider.'index']);
+	Route::get('admin/slider/data', ['as' => 'admin.cms.slider.data', 'uses' => $cms_slider.'data']);
+	Route::get('admin/slider/updstat', ['as' => 'admin.cms.slider.updstat', 'uses' => $cms_slider.'updStat']);
+	Route::get('admin/slider/create', ['as' => 'admin.cms.slider.create', 'uses' => $cms_slider.'create']);	
+	Route::post('admin/slider/save', ['as' => 'admin.cms.slider.save', 'uses' => $cms_slider.'store']);	
+	Route::get('admin/slider/delete', ['as' => 'admin.cms.slider.delete', 'uses' => $cms_slider.'destroy']);
 
 	#Users
 	$users = 'UsersController@';
@@ -204,7 +212,7 @@ Route::get('tescontent', function(){
 $public = 'PublicController@';
 Route::get('/', ['as' => 'public.visitor.home', 'uses' => $public.'index']);
 Route::get('konten/{nama_artikel}', ['as' => 'public.visitor.showContent', 'uses' => $public.'show']);
-Route::get('kategori/{kategori}', ['as' => 'public.visitor.showCategory', 'uses' => $public.'category']);
+Route::get('kategori/{kategori}/{sub_kategori?}', ['as' => 'public.visitor.showCategory', 'uses' => $public.'category']);
 # /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
 
 
@@ -230,31 +238,33 @@ Route::get('test', function(){
 Route::get('test2', function(){
 	// return CMSLabelModel::whereIn('nama_label', ['tes', '2', '3'])->get();
 
-			$lbl = explode(',', 'tas,tes,tus');
-			$d3 = [];
-			$d_label = new CMSLabelModel();
-			$lbl = explode(',', $input['label']);
-			$lbl_data = $d_label->whereIn('nama_label', $lbl)->get();
-			foreach ($lbl_data as $k => $value) {
+			// $lbl = explode(',', 'tas,tes,tus');
+			// $d3 = [];
+			// $d_label = new CMSLabelModel();
+			// $lbl = explode(',', $input['label']);
+			// $lbl_data = $d_label->whereIn('nama_label', $lbl)->get();
+			// foreach ($lbl_data as $k => $value) {
 
-				if (in_array($value->nama_label, $lbl)) {
+			// 	if (in_array($value->nama_label, $lbl)) {
 				
-					$d3[] = ['id_label' => $value->id_label, 'id_post' => $pos_id];
+			// 		$d3[] = ['id_label' => $value->id_label, 'id_post' => $pos_id];
 
-					if(($key = array_search($value->nama_label, $lbl)) !== false) {
-					    unset($lbl[$key]);
-					}
-				}
-			}
+			// 		if(($key = array_search($value->nama_label, $lbl)) !== false) {
+			// 		    unset($lbl[$key]);
+			// 		}
+			// 	}
+			// }
 
-			if($lbl != null){
-				for ($i=0; $i < sizeof($lbl); $i++) { 
-					$ins_lbl[] = ['nama_label' => str_replace(' ', '', $lbl[$i])];	
-				}
-				$d_label->insert($ins_lbl);
-			}
+			// if($lbl != null){
+			// 	for ($i=0; $i < sizeof($lbl); $i++) { 
+			// 		$ins_lbl[] = ['nama_label' => str_replace(' ', '', $lbl[$i])];	
+			// 	}
+			// 	$d_label->insert($ins_lbl);
+			// }
 
-
+return CMSPostModel::whereHas('kategori', function($q){
+					$q->where('cms_tb_kategori.nama_kategori', '=', 'kapal');
+				})->with('kategori')->paginate(5);
 
 
 	// $data = CMSKategoriModel::all();

@@ -132,6 +132,23 @@ Class Lib{
 		return $d;
 	}
 
+	public static function getListTypeKapal($id_type = '')
+	{
+		$d[''] = '-- Pilih Type Kapal --';
+		
+		if(isset($id_type) && !empty($id_type)){
+			$data= MasterTypeKapal::where('id_kapal_pengawas', '=', $id_type)->get();
+		}else{
+			
+				$data = MasterTypeKapal::all();
+				
+		}
+		foreach ($data as $key => $value) {
+			$d[$value->id_type_kapal] = $value->nama_type_kapal;
+		}
+		return $d;
+	}
+
 	public static function getListAlatTangkap($id_alat = '')
 	{
 		$d[''] = '-- Pilih Alat Tangkap --';

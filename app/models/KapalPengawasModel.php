@@ -16,5 +16,10 @@ class KapalPengawasModel extends \Eloquent {
 		return $this->hasMany('OperasiModel', 'id_kapal_pengawas', 'id_kapal_pengawas');
 	}
 
+	public function typekapal()
+	{
+		return $this->belongsTo('MasterTypeKapal', 'id_type_kapal', 'id_type_kapal');
+	}
+
 
 }

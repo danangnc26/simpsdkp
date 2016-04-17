@@ -5,9 +5,11 @@
                                 <i class="fa fa-ship"></i>
                             </div>
                             <div class="block_caption">
+                            <a href="{{route('public.visitor.data.kapal_pengawas')}}">
                                 <h3 class="fw-b txt-clr1" style="color:#333333">Kapal Pengawas <br/> <span class="fw-n">
                                    <small>Speedboat</small> </span></h3>
                                 <!-- <a href="#" class="btn-link">Learn more</a> -->
+                            </a>
                             </div>
                         </div>
                     </div>
@@ -60,6 +62,8 @@
 				@if(empty($kategori) || count($kategori) == 0)
 				@else
 				<?php
+				$k = [];
+				$k2 = [];
 				foreach ($kategori as $key => $value) {
 					if($value->kategori_utama == null){
 						$k[] = ['id_kategori' => $value->id_kategori, 'nama_kategori' => $value->nama_kategori];

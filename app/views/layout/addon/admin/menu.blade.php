@@ -92,7 +92,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="{{route('admin.dashboard')}}">
+					<a href="{{route('admin.kapal_pengawas.index')}}">
 					<i class="fa fa-ship"></i>
 					<span class="title">Data Kapal</span>
 					</a>

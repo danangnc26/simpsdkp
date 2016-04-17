@@ -16,7 +16,20 @@ class KapalpengawasController extends \CoreController {
 	 */
 	public function index()
 	{
-		//
+		$this->layout()->content = View::make('page.admin.kapal_pengawas.index');
+	}
+
+	public function rekap()
+	{
+		return View::make('page.admin.kapal_pengawas.pg.rekap')->with(['data' => $this->rekapKapal()]);
+	}
+
+	public function rekapKapal()
+	{
+		$data = MasterTypeKapal::with(['kapalpengawas' => function($q){
+					$q->with('material');
+				}])->get();
+		return $data;
 	}
 
 	public function getDataKapalPengawasCurrentUPT()
@@ -30,17 +43,67 @@ class KapalpengawasController extends \CoreController {
 			$src = Lib::sId();
 		}
 
-		return Datatable::collection(KapalPengawasModel::with('material')->where($src, '=', $id)->get(['id_kapal_pengawas', 'nama_kapal_pengawas', 'id_material', 'spesifikasi']))
-        ->showColumns('nama_kapal_pengawas', 'spesifikasi')
-        ->addColumn('material', function($md){
-        	return $md->material->nama_material;
+		return Datatable::collection(KapalPengawasModel::with('material')->where($src, '=', $id)->get())
+        ->showColumns('nama_kapal_pengawas')
+        ->addColumn('gambar_kapal', function($gb){
+        	return '<img src="'.asset('uploaded_images/kapal_pengawas/'.$gb->image).'" width="200">';
         })
-        ->addColumn('personil', function($md2){
-        	return '<li>1 Orang Pengawas Perikanan </li>
-        			<li>2 Orang Awak Kapal Pengawas Perikanan </li>
-        			<li>3 Orang Polisi Khusus Pengawas Pesisir & Pulau kecil </li>
+        ->addColumn('spesifikasi', function($md){
+        	$panjang_loa = ($md->panjang_loa != null) ? $md->panjang_loa.' m' : '-';
+        	$panjang_lbp = ($md->panjang_lbp != null) ? $md->panjang_lbp.' m' : '-';
+        	$lebar 		 = ($md->lebar != null) ? $md->lebar.' m' : '-';
+        	$tinggi 	 = ($md->tinggi != null) ? $md->tinggi.' m' : '-';
+        	$kecepatan   = ($md->kecepatan_max != null) ? $md->kecepatan_max.' knot' : '-';
+        	$abk   		 = ($md->jml_abk != null) ? $md->jml_abk.' Orang' : '-';
+        	$material 	 = ($md->material->nama_material != null) ? $md->material->nama_material : '';
+        	$mesin1 	 = ($md->daya_mesin_1 != null) ? $md->daya_mesin_1.' HP' : '-';
+        	$mesin2 	 = ($md->daya_mesin_2 != null) ? $md->daya_mesin_2.' HP' : '-';
+
+        	return '<ul style="padding-left:20px; font-size:0.9em">
+        				<li>
+        				Panjang (LOA) : '.$panjang_loa.'
+        				</li>
+        				<li>
+        				Panjang antara (LBP) : '.$panjang_lbp.'
+        				</li>
+        				<li>
+        				Lebar : '.$lebar.'
+        				</li>
+        				<li>
+        				Tinggi : '.$tinggi.'
+        				</li>
+        				<li>
+        				Kecepatan Maks : '.$kecepatan.'
+        				</li>
+        				<li>
+        				Jumlah ABK : '.$abk.'
+        				</li>
+        				<li>
+        				Material : '.$material.'
+        				</li>
+        				<li>
+        				Daya Mesin :
+	        				<ol style="padding-left:15px;">
+								<li>
+								Main Engine : '.$mesin1.'
+								</li>
+								<li>
+								Auxelary Engine : '.$mesin2.'
+								</li>
+	        				</ol>
+        				</li>
+        			</ul>
         			';
         })
+        // ->addColumn('material', function($md){
+        // 	return $md->material->nama_material;
+        // })
+        // ->addColumn('personil', function($md2){
+        // 	return '<li>1 Orang Pengawas Perikanan </li>
+        // 			<li>2 Orang Awak Kapal Pengawas Perikanan </li>
+        // 			<li>3 Orang Polisi Khusus Pengawas Pesisir & Pulau kecil </li>
+        // 			';
+        // })
         ->addColumn('id_kapal_pengawas', function($md3){
         	$id = "'".$this->encrypt($md3->id_kapal_pengawas)."'";
         	return '<button href="'.route('admin.upt.kapal_pengawas.edit', 'id_kapal_pengawas='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit">
@@ -72,29 +135,39 @@ class KapalpengawasController extends \CoreController {
 	{
 		if(Request::ajax()){
 
-			$input = Input::all();
 
 			$input = Input::all();
-			if(Lib::uRole() == null){
-				$this->kapalpengawas->id_upt 			= (isset($input['id_upt'])) ? $this->decrypt($input['id_upt']) : null;
-				$this->kapalpengawas->id_satker 		= (isset($input['id_satker'])) ? $this->decrypt($input['id_satker']) : null;
-				$this->kapalpengawas->id_pos 			= (isset($input['id_pos'])) ? $this->decrypt($input['id_pos']) : null;
-			}else{
-				if(Lib::uRole() == 'upt'){
-					$this->kapalpengawas->id_upt 			= $this->decrypt(Lib::getIdSatuan());
-				}
-				if(Lib::uRole() == 'satker'){
-					$this->kapalpengawas->id_satker 		= $this->decrypt(Lib::getIdSatuan());
-				}
-				if(Lib::uRole() == 'pos'){
-					$this->kapalpengawas->id_pos 			= $this->decrypt(Lib::getIdSatuan());
+			if((isset($input['id_upt']) && $input['id_upt'] != null) || (isset($input['id_pos']) && $input['id_pos'] != null) || (isset($input['id_satker']) && $input['id_satker'] != null)){
+				if(Lib::uRole() == null){
+					$this->kapalpengawas->id_upt 			= (isset($input['id_upt'])) ? $this->decrypt($input['id_upt']) : null;
+					$this->kapalpengawas->id_satker 		= (isset($input['id_satker'])) ? $this->decrypt($input['id_satker']) : null;
+					$this->kapalpengawas->id_pos 			= (isset($input['id_pos'])) ? $this->decrypt($input['id_pos']) : null;
+				}else{
+					if(Lib::uRole() == 'upt'){
+						$this->kapalpengawas->id_upt 			= $this->decrypt(Lib::getIdSatuan());
+					}
+					if(Lib::uRole() == 'satker'){
+						$this->kapalpengawas->id_satker 		= $this->decrypt(Lib::getIdSatuan());
+					}
+					if(Lib::uRole() == 'pos'){
+						$this->kapalpengawas->id_pos 			= $this->decrypt(Lib::getIdSatuan());
+					}
 				}
 			}
 			
-			$this->kapalpengawas->nama_kapal_pengawas 	= $input['nama_kapal_pengawas'];
+			$this->kapalpengawas->nama_kapal_pengawas 	= $input['nama_kapal_pengawas'];			
+			// $this->kapalpengawas->spesifikasi 			= $input['spesifikasi'];
+			$this->kapalpengawas->image 				= $this->createImage($input['gambar_kapal_pengawas'], false, 'kapal_pengawas', 1000);
 			$this->kapalpengawas->id_material 			= $input['id_material'];
-			$this->kapalpengawas->spesifikasi 			= $input['spesifikasi'];
-			$this->kapalpengawas->image 				= $this->createImage($input['gambar_kapal_pengawas']);
+			$this->kapalpengawas->panjang_loa			= $input['panjang_loa'];
+			$this->kapalpengawas->panjang_lbp			= $input['panjang_lbp'];
+			$this->kapalpengawas->lebar 				= $input['lebar'];
+			$this->kapalpengawas->tinggi 				= $input['tinggi'];
+			$this->kapalpengawas->kecepatan_max			= $input['kecepatan_max'];
+			$this->kapalpengawas->jml_abk				= $input['jml_abk'];
+			$this->kapalpengawas->daya_mesin_1			= $input['daya_mesin_1'];
+			$this->kapalpengawas->daya_mesin_2			= $input['daya_mesin_2'];
+			$this->kapalpengawas->id_type_kapal			= $input['id_type_kapal'];
 			$this->kapalpengawas->save();	
 
 			$respon = ['status' => true, 'msg' => $this->input_success];

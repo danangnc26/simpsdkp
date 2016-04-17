@@ -21,6 +21,14 @@ class PublicController extends \CoreController {
 		$this->layout()->content = View::make('page.public.content');
 	}
 
+	public function getDataKapal()
+	{
+		$data = MasterTypeKapal::with(['kapalpengawas' => function($q){
+					$q->with('material');
+				}])->get();
+		$this->layout()->content = View::make('page.public.data.kapal_pengawas')->with(['data' => $data]);
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /public/create

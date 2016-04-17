@@ -92,9 +92,12 @@ class CMSSliderController extends \CoreController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit()
 	{
-		//
+		if(Request::ajax()){
+			$data = $this->slider->where('id_slider', '=', $this->decrypt(Request::get('id_slider')))->get();
+			return View::make('page.cms.slider.edit')->with(['data' => $data]);
+		}
 	}
 
 	/**
@@ -104,9 +107,25 @@ class CMSSliderController extends \CoreController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+		if(Request::ajax()){
+			$input = Input::all();
+
+			$update = $this->slider->find($this->decrypt($input['id_slider']));		
+
+			if(isset($input['gambar_slider'])){
+			$update->gambar_slider		= $this->createImage($input['gambar_slider'], false, 'slider');	
+			}
+			$update->keterangan			= $input['keterangan'];
+			$update->is_used			= $input['status'];
+			$update->save();
+
+			$respon = ['status' => true, 'msg' => $this->input_success];
+
+			return Response::json($respon);
+
+		}
 	}
 
 	/**

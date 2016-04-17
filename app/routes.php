@@ -90,6 +90,10 @@ Route::group(['before' => 'auth'], function(){
 
 	#KapalPengawas
 	$kapalpengawas = 'KapalPengawasController@';
+	Route::get('admin/kapal_pengawas/index', ['as' => 'admin.kapal_pengawas.index', 'uses' => $kapalpengawas.'index']);
+	Route::get('admin/kapal_pengawas/rekap', ['as' => 'admin.kapal_pengawas.rekap', 'uses' => $kapalpengawas.'rekap']);
+
+	#
 	Route::get('admin/upt/kapal_pengawas/api', ['as' => 'admin.upt.kapal_pengawas.api', 'uses' => $kapalpengawas.'getDataKapalPengawasCurrentUPT']);
 	Route::get('admin/upt/kapal_pengawas/table', ['as' => 'admin.upt.kapal_pengawas.table', 'uses' => $kapalpengawas.'pgUPTKapalPengawas']);
 	Route::get('admin/upt/kapal_pengawas/input', ['as' => 'admin.upt.kapal_pengawas.input', 'uses' => $kapalpengawas.'inputKapalPengawas']);
@@ -176,6 +180,8 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('admin/slider/updstat', ['as' => 'admin.cms.slider.updstat', 'uses' => $cms_slider.'updStat']);
 	Route::get('admin/slider/create', ['as' => 'admin.cms.slider.create', 'uses' => $cms_slider.'create']);	
 	Route::post('admin/slider/save', ['as' => 'admin.cms.slider.save', 'uses' => $cms_slider.'store']);	
+	Route::get('admin/slider/edit', ['as' => 'admin.cms.slider.edit', 'uses' => $cms_slider.'edit']);	
+	Route::post('admin/slider/update', ['as' => 'admin.cms.slider.update', 'uses' => $cms_slider.'update']);	
 	Route::get('admin/slider/delete', ['as' => 'admin.cms.slider.delete', 'uses' => $cms_slider.'destroy']);
 
 	#Users
@@ -186,6 +192,52 @@ Route::group(['before' => 'auth'], function(){
 
 	#Logout
 	Route::get('admin/logout', ['as' => 'users.logout', 'uses' => 'UsersController@destroy']);
+
+	#CheckTypeKapal
+	Route::get('admin/plug/chktypekapal', ['as' => 'chk.type.kapal', function(){
+		$data = KapalPengawasModel::where('id_type_kapal', '=',Request::get('id_type_kapal'))->get();
+		$cnt = count($data);
+		if($cnt == 0){
+			$d = '001';
+		}else{
+			$pl = $cnt+1;
+			$len = strlen($cnt);
+			if($len == 1){
+				$no = '00';
+			}elseif($len == 2){
+				$no = '0';
+			}elseif($len == 3){
+				$no = '';
+			}
+			$d = $no.$pl;
+		}
+		$resp = ['no_kapal' => $d];
+		return Response::json($resp);
+		
+
+		// $kd = 'SP';
+		// $supplier = Supplier::max('kode_supp');
+		// if($supplier == null){
+		// 	$kode = $kd.'001';
+		// }else{
+		// 	$num = substr($supplier, 0-3);
+		// 	$one = $num+1;
+		// 	$leng = strlen($one);
+		// 	// $kode = $kd.$num+1;
+		// 	$sub = substr($supplier,0-3);
+		// 	$one = $sub+1;
+		// 	$leng = strlen($one);
+		// 	if($leng == 1){
+		// 	$no = '00';
+		// 	}elseif($leng == 2){
+		// 	$no = '0';
+		// 	}elseif($leng == 3){
+		// 	$no = '';
+		// 	}
+		// 	$kode = $kd.$no.$one;
+		// }
+		// return $kode;
+	}]);
 
 	#ChainProvinsi
 	Route::post('admin/plug/chainKota', ['as' => 'chain.kota', function(){
@@ -213,6 +265,7 @@ $public = 'PublicController@';
 Route::get('/', ['as' => 'public.visitor.home', 'uses' => $public.'index']);
 Route::get('konten/{nama_artikel}', ['as' => 'public.visitor.showContent', 'uses' => $public.'show']);
 Route::get('kategori/{kategori}/{sub_kategori?}', ['as' => 'public.visitor.showCategory', 'uses' => $public.'category']);
+Route::get('data/kapal_pengawas', ['as' => 'public.visitor.data.kapal_pengawas', 'uses' => $public.'getDataKapal']);
 # /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
 
 
@@ -236,6 +289,16 @@ Route::get('test', function(){
 });
 
 Route::get('test2', function(){
+	// return $md3->kotaUPT->kotaProvinsi->nama_provinsi;
+		$d = MasterTypeKapal::with(['kapalpengawas' => function($q){
+			$q->with('material');
+		}])->get();
+		return $d;
+		// foreach ($d as $key => $value) {
+		// 	$value->kapalpengawas()->nama_kapal_pengawas;
+		// }
+
+
 	// return CMSLabelModel::whereIn('nama_label', ['tes', '2', '3'])->get();
 
 			// $lbl = explode(',', 'tas,tes,tus');

@@ -3,7 +3,7 @@
 <div class="portlet light">
 	<div class="portlet-title">
 		<div class="caption">
-			<i class="fa fa-cogs font-green-sharp"></i>
+			<i class="fa fa-compass font-green-sharp"></i>
 			<span class="caption-subject font-green-sharp bold uppercase">Data Operasi</span>
 		</div>
 	</div>

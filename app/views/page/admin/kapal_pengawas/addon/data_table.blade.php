@@ -5,15 +5,14 @@
 
 			{{ Datatable::table()
 			->setId('tbl_kapal_pengawas')
-		    ->addColumn('Nama Kapal Pengawas', 'Ukuran ( Meter )', 'Material Kapal Pengawas', 'Personil', 'Action')
+		    ->addColumn('Nama Kapal Pengawas', 'Gambar', 'Spesifikasi', 'Action')
 		    ->setOptions(
 				array(
 					'aoColumns' => 
 						array(
-							null, 
-							null,
-							null,
-							null,
+							array('width' => '25%'),
+							array('bSortable' => false),
+							array('width' => '25%'),
 							array('bSortable' => false, 'width' => '8%')
 						),
 						'order' => 

@@ -26,7 +26,7 @@
 					@else
 					<button onclick="updStat('{{Crypt::encrypt($value->id_slider)}}', 'Aktifkan?', 1)" style="border-top:0px; border-bottom:0px;" type="button" class="btn btn-default tt-aktif"><i style="color:#32c5d2" class="fa fa-check"></i></button>
 					@endif
-					<button style="border-top:0px; border-right:0px; border-bottom:0px;" type="button" class="btn btn-default tt-edit"><i class="fa fa-edit"></i></button>
+					<button href="{{route('admin.cms.slider.edit', 'id_slider='.Crypt::encrypt($value->id_slider))}}" style="border-top:0px; border-right:0px; border-bottom:0px;" type="button" class="btn btn-default tt-edit edit-slider"><i class="fa fa-edit"></i></button>
 					<button onclick="hapus('{{Crypt::encrypt($value->id_slider)}}')" style="border-top:0px; border-bottom:0px; border-right:0px;" type="button" class="btn btn-default tt-hapus"><i class="fa fa-trash"></i></button>
 				</div>
 			</div>
@@ -38,6 +38,9 @@
 @endif
 <script type="text/javascript">
 	cst_tooltip();
+	$('.edit-slider').magnificPopup({
+	  type: 'ajax'
+	});
 	function hapus(id){
 		if(confirm("Hapus data ini?")){
 			$.get("{{route('admin.cms.slider.delete', 'id_slider=')}}" + id, function(d){

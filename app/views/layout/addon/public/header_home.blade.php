@@ -97,7 +97,7 @@
                     </label>
                     <button class="btn" type="submit">Find now</button>
                 </form>
-
+                
                 <div class="row">
                     <div class="col-md-3 col-sm-6 col-xs-6 text-left wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
                         <div class="block-icon">
@@ -107,7 +107,7 @@
                             <div class="block_caption">
                                 <h3 class="fw-b txt-clr1">Kapal Pengawas <br/> <span class="fw-n">
                                    <small>Speedboat</small> </span></h3>
-                                <a href="#" class="btn-link">Learn more</a>
+                                <a href="{{route('public.visitor.data.kapal_pengawas')}}" class="btn-link">Learn more</a>
                             </div>
                         </div>
                     </div>

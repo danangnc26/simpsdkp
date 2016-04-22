@@ -19,9 +19,9 @@ class KapalpengawasController extends \CoreController {
 		$this->layout()->content = View::make('page.admin.kapal_pengawas.index');
 	}
 
-	public function rekap()
+	public function statistik()
 	{
-		return View::make('page.admin.kapal_pengawas.pg.rekap')->with(['data' => $this->rekapKapal()]);
+		return View::make('page.admin.kapal_pengawas.pg.statistik')->with(['data' => $this->rekapKapal()]);
 	}
 
 	public function rekapKapal()
@@ -30,6 +30,101 @@ class KapalpengawasController extends \CoreController {
 					$q->with('material');
 				}])->get();
 		return $data;
+	}
+
+	public function type()
+	{
+		$data = MasterTypeKapal::all();
+		return View::make('page.admin.kapal_pengawas.pg.type')->with(['data' => $data]);
+	}
+
+	public function all()
+	{
+		return View::make('page.admin.kapal_pengawas.pg.all');
+	}
+
+	public function data_all()
+	{
+		return Datatable::collection(KapalPengawasModel::with('material')->get())
+        ->showColumns('nama_kapal_pengawas')
+        ->addColumn('gambar_kapal', function($gb){
+        	return '<img src="'.asset('uploaded_images/kapal_pengawas/'.$gb->image).'" width="200">';
+        })
+        ->addColumn('spesifikasi', function($md){
+        	$panjang_loa = ($md->panjang_loa != null) ? $md->panjang_loa.' m' : '-';
+        	$panjang_lbp = ($md->panjang_lbp != null) ? $md->panjang_lbp.' m' : '-';
+        	$lebar 		 = ($md->lebar != null) ? $md->lebar.' m' : '-';
+        	$tinggi 	 = ($md->tinggi != null) ? $md->tinggi.' m' : '-';
+        	$kecepatan   = ($md->kecepatan_max != null) ? $md->kecepatan_max.' knot' : '-';
+        	$abk   		 = ($md->jml_abk != null) ? $md->jml_abk.' Orang' : '-';
+        	$material 	 = ($md->material->nama_material != null) ? $md->material->nama_material : '';
+        	$mesin1 	 = ($md->daya_mesin_1 != null) ? $md->daya_mesin_1.' HP' : '-';
+        	$mesin2 	 = ($md->daya_mesin_2 != null) ? $md->daya_mesin_2.' HP' : '-';
+
+        	return '<ul style="padding-left:20px; font-size:0.9em">
+        				<li>
+        				Panjang (LOA) : '.$panjang_loa.'
+        				</li>
+        				<li>
+        				Panjang antara (LBP) : '.$panjang_lbp.'
+        				</li>
+        				<li>
+        				Lebar : '.$lebar.'
+        				</li>
+        				<li>
+        				Tinggi : '.$tinggi.'
+        				</li>
+        				<li>
+        				Kecepatan Maks : '.$kecepatan.'
+        				</li>
+        				<li>
+        				Jumlah ABK : '.$abk.'
+        				</li>
+        				<li>
+        				Material : '.$material.'
+        				</li>
+        				<li>
+        				Daya Mesin :
+	        				<ol style="padding-left:15px;">
+								<li>
+								Main Engine : '.$mesin1.'
+								</li>
+								<li>
+								Auxelary Engine : '.$mesin2.'
+								</li>
+	        				</ol>
+        				</li>
+        			</ul>
+        			';
+        })
+        ->addColumn('id_kapal_pengawas', function($md3){
+        	$id = "'".$this->encrypt($md3->id_kapal_pengawas)."'";
+        	return '<button href="'.route('admin.upt.kapal_pengawas.edit', 'id_kapal_pengawas='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit ubah-kapal-pengawas">
+							<i class="fa fa-edit"></i>
+					</button>
+        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_kapal_pengawas.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
+							<i class="fa fa-trash"></i>
+					</button>
+					<button href="'.route('admin.kapal_pengawas.posisi').'" type="button" style="margin-right:0px; margin-top:5px; font-size:1.1em;" class="btn btn-xs cst-transparent tt-marker posisi-kapal-pengawas">
+							<i class="fa fa-map-marker"></i>
+					</button>
+					';
+        })
+        ->searchColumns('nama_kapal_pengawas')
+        ->orderColumns('nama_kapal_pengawas')
+        ->make();
+	}
+
+	public function posisi()
+	{
+		return View::make('page.admin.kapal_pengawas.addon.posisi');
+	}
+
+	public function sv_posisi()
+	{
+		if(Request::ajax()){
+			
+		}
 	}
 
 	public function getDataKapalPengawasCurrentUPT()

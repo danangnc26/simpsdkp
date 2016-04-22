@@ -91,7 +91,13 @@ Route::group(['before' => 'auth'], function(){
 	#KapalPengawas
 	$kapalpengawas = 'KapalPengawasController@';
 	Route::get('admin/kapal_pengawas/index', ['as' => 'admin.kapal_pengawas.index', 'uses' => $kapalpengawas.'index']);
-	Route::get('admin/kapal_pengawas/rekap', ['as' => 'admin.kapal_pengawas.rekap', 'uses' => $kapalpengawas.'rekap']);
+	Route::get('admin/kapal_pengawas/statistik', ['as' => 'admin.kapal_pengawas.statistik', 'uses' => $kapalpengawas.'statistik']);
+	Route::get('admin/kapal_pengawas/semua_kapal', ['as' => 'admin.kapal_pengawas.all', 'uses' => $kapalpengawas.'all']);
+	Route::get('admin/kapal_pengawas/semua_kapal/api', ['as' => 'admin.kapal_pengawas.all.api', 'uses' => $kapalpengawas.'data_all']);
+	Route::get('admin/kapal_pengawas/type', ['as' => 'admin.kapal_pengawas.type', 'uses' => $kapalpengawas.'type']);
+	Route::get('admin/kapal_pengawas/posisi', ['as' => 'admin.kapal_pengawas.posisi', 'uses' => $kapalpengawas.'posisi']);
+	Route::post('admin/kapal_pengawas/save_posisi', ['as' => 'admin.kapal_pengawas.save.posisi', 'uses' => $kapalpengawas.'sv_posisi']);
+
 
 	#
 	Route::get('admin/upt/kapal_pengawas/api', ['as' => 'admin.upt.kapal_pengawas.api', 'uses' => $kapalpengawas.'getDataKapalPengawasCurrentUPT']);

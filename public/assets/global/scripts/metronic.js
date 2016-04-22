@@ -981,4 +981,5 @@ function cst_tooltip()
     $(".tt-lihat").tooltip({title: "Lihat"});
     $(".tt-nonaktif").tooltip({title: "Nonaktifkan"});
     $(".tt-aktif").tooltip({title: "Aktifkan"});
+    $(".tt-marker").tooltip({title: "Posisi"});
 }

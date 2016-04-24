@@ -33,6 +33,9 @@
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="{{asset('assets/global/img/icon.png')}}"/>
 
+		
+
+
 {{HTML::script('assets/global/plugins/jquery.min.js')}}
 {{--HTML::script('assets/global/plugins/jquery-migrate.min.js')--}}
 
@@ -57,3 +60,4 @@
 
 
 {{HTML::style('assets/global/plugins/customfileinput/css/component.css')}}
+

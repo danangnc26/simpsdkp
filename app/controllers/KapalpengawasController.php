@@ -55,6 +55,7 @@ class KapalpengawasController extends \CoreController {
         	$panjang_lbp = ($md->panjang_lbp != null) ? $md->panjang_lbp.' m' : '-';
         	$lebar 		 = ($md->lebar != null) ? $md->lebar.' m' : '-';
         	$tinggi 	 = ($md->tinggi != null) ? $md->tinggi.' m' : '-';
+        	$sarat 		 = ($md->sarat != null) ? $md->sarat.' m' : '-';
         	$kecepatan   = ($md->kecepatan_max != null) ? $md->kecepatan_max.' knot' : '-';
         	$abk   		 = ($md->jml_abk != null) ? $md->jml_abk.' Orang' : '-';
         	$material 	 = ($md->material->nama_material != null) ? $md->material->nama_material : '';
@@ -73,6 +74,9 @@ class KapalpengawasController extends \CoreController {
         				</li>
         				<li>
         				Tinggi : '.$tinggi.'
+        				</li>
+        				<li>
+        				Sarat : '.$sarat.'
         				</li>
         				<li>
         				Kecepatan Maks : '.$kecepatan.'
@@ -105,7 +109,7 @@ class KapalpengawasController extends \CoreController {
         			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_kapal_pengawas.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
 							<i class="fa fa-trash"></i>
 					</button>
-					<button href="'.route('admin.kapal_pengawas.posisi').'" type="button" style="margin-right:0px; margin-top:5px; font-size:1.1em;" class="btn btn-xs cst-transparent tt-marker posisi-kapal-pengawas">
+					<button href="'.route('admin.kapal_pengawas.posisi', 'id_kapal='.$this->encrypt($md3->id_kapal_pengawas)).'" type="button" style="margin-right:0px; margin-top:5px; font-size:1.1em;" class="btn btn-xs cst-transparent tt-marker posisi-kapal-pengawas">
 							<i class="fa fa-map-marker"></i>
 					</button>
 					';
@@ -117,13 +121,35 @@ class KapalpengawasController extends \CoreController {
 
 	public function posisi()
 	{
-		return View::make('page.admin.kapal_pengawas.addon.posisi');
+		$data = $this->kapalpengawas->where('id_kapal_pengawas', '=', $this->decrypt(Request::get('id_kapal')))->get();
+		return View::make('page.admin.kapal_pengawas.addon.posisi')->with(['data' => $data]);
 	}
 
 	public function sv_posisi()
 	{
 		if(Request::ajax()){
-			
+			$input = Input::all();
+
+			$posisi = $this->kapalpengawas->find($this->decrypt($input['id_kapal']));
+
+			if($input['upt'] != null){
+				$posisi->id_upt		= $input['upt'];
+			}
+			if($input['satker'] != null){
+				$posisi->id_satker	= $input['satker'];
+			}
+			if($input['pos'] != null){
+				$posisi->id_pos		= $input['pos'];
+			}
+
+			$posisi->id_kota 		= $input['kota'];
+			$posisi->nama_posisi 	= $input['nama_posisi'];
+			$posisi->latlng 		= $input['latitude'].','.$input['longitude'];
+			$posisi->save();
+
+			$respon = ['status' => true, 'msg' => $this->input_success];
+
+			return Response::json($respon);
 		}
 	}
 
@@ -258,6 +284,7 @@ class KapalpengawasController extends \CoreController {
 			$this->kapalpengawas->panjang_lbp			= $input['panjang_lbp'];
 			$this->kapalpengawas->lebar 				= $input['lebar'];
 			$this->kapalpengawas->tinggi 				= $input['tinggi'];
+			$this->kapalpengawas->sarat 				= $input['sarat'];
 			$this->kapalpengawas->kecepatan_max			= $input['kecepatan_max'];
 			$this->kapalpengawas->jml_abk				= $input['jml_abk'];
 			$this->kapalpengawas->daya_mesin_1			= $input['daya_mesin_1'];

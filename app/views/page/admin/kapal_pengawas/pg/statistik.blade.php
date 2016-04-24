@@ -52,7 +52,7 @@
 								@foreach($v1['nama_material'] as $m)
 								<tr>
 									<td >{{$n2}}</td>
-									<td >{{$v1['nama_type_kapal']}}</td>
+									<td >KP. {{$v1['nama_type_kapal']}}</td>
 									<td>
 										{{$m}}
 									</td>
@@ -75,7 +75,7 @@
 								@else
 								<tr>
 									<td>{{$n2}}</td>
-									<td>{{$v1['nama_type_kapal']}}</td>
+									<td>KP. {{$v1['nama_type_kapal']}}</td>
 									<td>
 										-
 									</td>

@@ -68,3 +68,7 @@ $(document).ready(function() {
    
 });
 </script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<!-- Map Icons -->
+{{HTML::style('assets/global/plugins/map-icons/dist/css/map-icons.css')}}
+{{HTML::script('assets/global/plugins/map-icons/dist/js/map-icons.js')}}

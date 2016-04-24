@@ -126,6 +126,7 @@ return array(
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Cartalyst\Sentry\SentryServiceProvider',
+        'Barryvdh\DomPDF\ServiceProvider',
 
 	),
 
@@ -198,6 +199,7 @@ return array(
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
 		'Image' 		  => 'Intervention\Image\Facades\Image',
 		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'PDF' => 'Barryvdh\DomPDF\Facade',
 
 	),
 

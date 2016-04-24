@@ -76,6 +76,38 @@ Class Lib{
 
 	}
 
+	public static function getListSatker($id_satker = '')
+	{
+		$d[''] = '-- Pilih Satker --';
+		
+		if(isset($id_satker) && !empty($id_satker)){
+			$data= SatkerModel::where('id_satker', '=', Crypt::decrypt($id_satker))->get();
+		}else{
+			$data = SatkerModel::all();
+		}
+		foreach ($data as $key => $value) {
+			$d[$value->id_satker] = $value->nama_satker;
+		}
+		return $d;
+
+	}
+
+	public static function getListPos($id_pos = '')
+	{
+		$d[''] = '-- Pilih Pos --';
+		
+		if(isset($id_pos) && !empty($id_pos)){
+			$data= PosModel::where('id_pos', '=', Crypt::decrypt($id_pos))->get();
+		}else{
+			$data = PosModel::all();
+		}
+		foreach ($data as $key => $value) {
+			$d[$value->id_pos] = $value->nama_pos;
+		}
+		return $d;
+
+	}
+
 	public static function getListMaterial($id_material = '')
 	{
 
@@ -391,6 +423,12 @@ Class Lib{
 		$data = CMSSliderModel::where('is_used', '=', 1)->get();
 		return $data;
 
+	}
+
+	public static function getKapalMarker()
+	{
+		$data = KapalPengawasModel::all(['nama_kapal_pengawas', 'latlng']);
+		return $data;
 	}
 
 

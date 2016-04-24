@@ -1,4 +1,4 @@
-<div class="ajax-text-and-image white-popup-block" style="width:100%; min-width:1000px;">
+<div class="ajax-text-and-image white-popup-block" style="width:100%; min-width:1100px;">
 	<div class="ajcol" style="line-height: 1.231;">
 		<div style="padding: 0em">
 			<h3>Input Data Kapal Pengawas</h3>
@@ -9,7 +9,7 @@
 			@else
 			@endif
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<h4><b>Nama & Gambar Kapal</b></h4>
 					<div class="form-group">
 						<label>Type Kapal : </label>
@@ -24,7 +24,7 @@
 						{{Form::file('gambar_kapal_pengawas', ['id' => 'gambar_kapal_pengawas', 'class' => 'form-control', 'required' => ''])}}
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<h4><b>Spesifikasi Kapal</b></h4>
 					<div class="form-group">
 						<label>Material Kapal Pengawas : </label>
@@ -38,20 +38,26 @@
 						<label>Panjang antara ( LBP ) : </label>
 						{{Form::text('panjang_lbp', null, ['id' => 'panjang_lbp', 'class' => 'form-control', 'placeholder' => 'Tulis Panjang antara ( LBP )'])}}
 					</div>
-					<div class="form-group">
-						<label>Lebar : </label>
-						{{Form::text('lebar', null, ['id' => 'lebar', 'class' => 'form-control', 'placeholder' => 'Tulis Lebar'])}}
-					</div>
 					<!-- <div class="form-group">
 						<label>Spesifikasi Kapal Pengawas : </label>
 						{{Form::text('spesifikasi', null, ['id' => 'spesifikasi', 'class' => 'form-control', 'placeholder' => 'Tulis Ukuran Kapal Pengawas'])}}
 					</div> -->
 				</div>
-				<div class="col-md-4" style="margin-top:38px;">
+				<div class="col-md-3" style="margin-top:38px;">
 					<div class="form-group">
-						<label>Tinggi : </label>
+						<label>Lebar ( B ) : </label>
+						{{Form::text('lebar', null, ['id' => 'lebar', 'class' => 'form-control', 'placeholder' => 'Tulis Lebar'])}}
+					</div>
+					<div class="form-group">
+						<label>Tinggi ( H ) : </label>
 						{{Form::text('tinggi', null, ['id' => 'tinggi', 'class' => 'form-control', 'placeholder' => 'Tulis Tinggi'])}}
 					</div>
+					<div class="form-group">
+						<label>Sarat ( T ) : </label>
+						{{Form::text('sarat', null, ['id' => 'sarat', 'class' => 'form-control', 'placeholder' => 'Tulis Sarat'])}}
+					</div>
+				</div>
+				<div class="col-md-3" style="margin-top:38px;">
 					<div class="form-group">
 						<label>Kecepatan Maks : </label>
 						{{Form::text('kecepatan_max', null, ['id' => 'kecepatan_max', 'class' => 'form-control', 'placeholder' => 'Tulis Kecepatan Maks'])}}
@@ -64,12 +70,12 @@
 						<div class="col-md-12">
 							<label>Daya Mesin : </label>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6" style="padding-right:0px;">
 							<div class="form-group">
 								{{Form::text('daya_mesin_1', null, ['id' => 'daya_mesin_1', 'class' => 'form-control', 'placeholder' => 'Main Engine'])}}
 							</div>	
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6" style="">
 							<div class="form-group">
 								{{Form::text('daya_mesin_2', null, ['id' => 'daya_mesin_2', 'class' => 'form-control', 'placeholder' => 'Auxelary Engine'])}}
 							</div>	

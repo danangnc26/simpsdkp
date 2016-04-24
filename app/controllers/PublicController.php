@@ -18,7 +18,7 @@ class PublicController extends \CoreController {
 	 */
 	public function index()
 	{
-		$this->layout()->content = View::make('page.public.content');
+		$this->layout()->content = View::make('page.public.home');
 	}
 
 	public function getDataKapal()
@@ -27,6 +27,15 @@ class PublicController extends \CoreController {
 					$q->with('material');
 				}])->get();
 		$this->layout()->content = View::make('page.public.data.kapal_pengawas')->with(['data' => $data]);
+	}
+
+	public function getBukuKapal()
+	{
+		$data1 = MasterTypeKapal::with(['kapalpengawas' => function($q){$q->with('material');}])->get();
+		$data2 = KapalPengawasModel::all();
+		$pdf = PDF::loadView('output.kapal_pengawas.buku', ['data1' => $data1, 'data2' => $data2])->setPaper('a4')->setOrientation('portrait');
+		return $pdf->stream('kapal_pengawas.pdf');
+		// return View::make('output.kapal_pengawas.buku')->with(['data1' => $data1, 'data2' => $data2]);
 	}
 
 	/**

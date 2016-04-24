@@ -272,6 +272,8 @@ Route::get('/', ['as' => 'public.visitor.home', 'uses' => $public.'index']);
 Route::get('konten/{nama_artikel}', ['as' => 'public.visitor.showContent', 'uses' => $public.'show']);
 Route::get('kategori/{kategori}/{sub_kategori?}', ['as' => 'public.visitor.showCategory', 'uses' => $public.'category']);
 Route::get('data/kapal_pengawas', ['as' => 'public.visitor.data.kapal_pengawas', 'uses' => $public.'getDataKapal']);
+
+Route::get('buku/kapal_pengawas.pdf', ['as' => 'public.visitor.buku.kapal_pengawas', 'uses' => $public.'getBukuKapal']);
 # /////////////////////////////////////// # VISITOR # /////////////////////////////////////// # 
 
 

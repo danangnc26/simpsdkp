@@ -21,5 +21,10 @@ class KapalPengawasModel extends \Eloquent {
 		return $this->belongsTo('MasterTypeKapal', 'id_type_kapal', 'id_type_kapal');
 	}
 
+	public function kotaKapal()
+	{
+		return $this->belongsTo('MasterKota', 'id_kota', 'id_kota');
+	}
+
 
 }

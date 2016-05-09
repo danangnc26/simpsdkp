@@ -56,6 +56,7 @@
         line-height: 1em;
     }
     </style>
+    <link rel="shortcut icon" href="{{asset('assets/global/img/icon.png')}}"/>
 </head>
 <body>
 <div class="page">

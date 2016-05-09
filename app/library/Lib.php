@@ -164,12 +164,13 @@ Class Lib{
 		return $d;
 	}
 
+	#TYPE KAPAL
 	public static function getListTypeKapal($id_type = '')
 	{
 		$d[''] = '-- Pilih Type Kapal --';
 		
 		if(isset($id_type) && !empty($id_type)){
-			$data= MasterTypeKapal::where('id_kapal_pengawas', '=', $id_type)->get();
+			$data= MasterTypeKapal::where('id_type_kapal', '=', $id_type)->get();
 		}else{
 			
 				$data = MasterTypeKapal::all();
@@ -177,6 +178,24 @@ Class Lib{
 		}
 		foreach ($data as $key => $value) {
 			$d[$value->id_type_kapal] = $value->nama_type_kapal;
+		}
+		return $d;
+	}
+
+	#TYPE SPEEDBOAT
+	public static function getListTypeSpeedboat($id_type = '')
+	{
+		$d[''] = '-- Pilih Type Speedboat --';
+		
+		if(isset($id_type) && !empty($id_type)){
+			$data= MasterTypeSpeedboat::where('id_type_speedboat', '=', $id_type)->get();
+		}else{
+			
+				$data = MasterTypeSpeedboat::all();
+				
+		}
+		foreach ($data as $key => $value) {
+			$d[$value->id_type_speedboat] = $value->nama_type_speedboat;
 		}
 		return $d;
 	}
@@ -429,6 +448,52 @@ Class Lib{
 	{
 		$data = KapalPengawasModel::all(['nama_kapal_pengawas', 'latlng']);
 		return $data;
+	}
+
+	#CheckTypeKapal
+	public static function chkTypeKapal()
+	{
+		$data = KapalPengawasModel::where('id_type_kapal', '=',Request::get('id_type_kapal'))->get();
+		$cnt = count($data);
+		if($cnt == 0){
+			$d = '001';
+		}else{
+			$pl = $cnt+1;
+			$len = strlen($cnt);
+			if($len == 1){
+				$no = '00';
+			}elseif($len == 2){
+				$no = '0';
+			}elseif($len == 3){
+				$no = '';
+			}
+			$d = $no.$pl;
+		}
+		$resp = ['no_kapal' => $d];
+		return Response::json($resp);
+	}
+
+	#CheckTypeSpeedboat
+	public static function chkTypeSpeedboat()
+	{
+		$data = SpeedboatModel::where('id_type_speedboat', '=',Request::get('id_type_speedboat'))->get();
+		$cnt = count($data);
+		if($cnt == 0){
+			$d = '001';
+		}else{
+			$pl = $cnt+1;
+			$len = strlen($cnt);
+			if($len == 1){
+				$no = '00';
+			}elseif($len == 2){
+				$no = '0';
+			}elseif($len == 3){
+				$no = '';
+			}
+			$d = $no.$pl;
+		}
+		$resp = ['no_speedboat' => $d];
+		return Response::json($resp);
 	}
 
 

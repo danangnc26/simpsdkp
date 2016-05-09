@@ -1,0 +1,1 @@
+type.blade.php

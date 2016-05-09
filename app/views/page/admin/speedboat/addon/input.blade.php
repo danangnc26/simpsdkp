@@ -11,6 +11,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
+						<label>Type Speedboat : </label>
+						{{Form::select('id_type_speedboat', Lib::getListTypeSpeedboat(), null, ['id' => 'id_type_speedboat', 'class' => 'form-control', 'required' => ''])}}
+					</div>
+					<div class="form-group">
 						<label>Nama Speedboat : </label>
 						{{Form::text('nama_speedboat', null, ['id' => 'nama_speedboat', 'class' => 'form-control', 'placeholder' => 'Tulis Nama Speedboat', 'required' => ''])}}
 					</div>
@@ -38,6 +42,11 @@
 			</div>
 			{{Form::close()}}
 			<script type="text/javascript">
+				$('#id_type_speedboat').change(function(){
+					$.get("{{route('chk.type.speedboat', 'id_type_speedboat=')}}" + $(this).val(), function(data){
+						$('#nama_speedboat').val($('#id_type_speedboat option:selected').text()+' '+data.no_speedboat)
+					});
+				});
 				$('#frm-input-speedboat').submit(function(event){
 					event.preventDefault();
 

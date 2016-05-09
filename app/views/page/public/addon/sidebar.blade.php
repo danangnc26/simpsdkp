@@ -1,4 +1,4 @@
-
+					@if(Route::currentRouteName() != 'public.visitor.home')
                     <div class="col-md-12 col-sm-6 col-xs-6 text-left wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
                         <div style="background:transparent;" class="block-icon">
                             <div class="icon">
@@ -52,6 +52,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 
 
 

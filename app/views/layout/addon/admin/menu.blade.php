@@ -98,7 +98,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="{{route('admin.dashboard')}}">
+					<a href="{{route('admin.speedboat.index')}}">
 					<i class="fa fa-rocket"></i>
 					<span class="title">Data Speedboat</span>
 					</a>

@@ -278,7 +278,7 @@ class KapalpengawasController extends \CoreController {
 			
 			$this->kapalpengawas->nama_kapal_pengawas 	= $input['nama_kapal_pengawas'];			
 			// $this->kapalpengawas->spesifikasi 			= $input['spesifikasi'];
-			$this->kapalpengawas->image 				= $this->createImage($input['gambar_kapal_pengawas'], false, 'kapal_pengawas', 1000);
+			$this->kapalpengawas->image 				= $this->createImage($input['gambar_kapal_pengawas'], false, 'kapal_pengawas', 500);
 			$this->kapalpengawas->id_material 			= $input['id_material'];
 			$this->kapalpengawas->panjang_loa			= $input['panjang_loa'];
 			$this->kapalpengawas->panjang_lbp			= $input['panjang_lbp'];

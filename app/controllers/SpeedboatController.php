@@ -16,7 +16,45 @@ class SpeedboatController extends \CoreController {
 	 */
 	public function index()
 	{
-		//
+		$this->layout()->content = View::make('page.admin.speedboat.index');
+	}
+
+	public function statistik()
+	{
+
+	}
+
+	public function all()
+	{
+		return View::make('page.admin.speedboat.pg.all');
+	}
+
+	public function data_all()
+	{
+		
+		return Datatable::collection($this->speedboat->with('material')->get())
+        ->showColumns('nama_speedboat', 'ukuran_speedboat')
+        ->addColumn('material', function($md){
+        	return $md->material->nama_material;
+        })
+        ->addColumn('id_speedboat', function($md2){
+        	$id = "'".$this->encrypt($md2->id_speedboat)."'";
+        	return '<button href="'.route('admin.upt.speedboat.edit', 'id_speedboat='.$id).'" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-edit">
+							<i class="fa fa-edit"></i>
+					</button>
+        			<button onclick="hapus('.$id.','.$this->confirm_delete.', '.$this->delete_speedboat.')" type="button" style="margin-right:0px;" class="btn btn-xs cst-transparent tt-hapus">
+							<i class="fa fa-trash"></i>
+					</button>';
+        })
+        ->searchColumns('nama_speedboat')
+        ->orderColumns('nama_speedboat')
+        ->make();
+
+	}
+
+	public function type()
+	{
+
 	}
 
 	public function getDataSpeedboatCurrentUPT()
@@ -67,19 +105,22 @@ class SpeedboatController extends \CoreController {
 		if(Request::ajax()){
 
 			$input = Input::all();
-			if(Lib::uRole() == null){
-				$this->speedboat->id_upt 			= (isset($input['id_upt'])) ? $this->decrypt($input['id_upt']) : null;
-				$this->speedboat->id_satker 		= (isset($input['id_satker'])) ? $this->decrypt($input['id_satker']) : null;
-				$this->speedboat->id_pos 			= (isset($input['id_pos'])) ? $this->decrypt($input['id_pos']) : null;
-			}else{
-				if(Lib::uRole() == 'upt'){
-					$this->speedboat->id_upt 			= $this->decrypt(Lib::getIdSatuan());
-				}
-				if(Lib::uRole() == 'satker'){
-					$this->speedboat->id_satker 		= $this->decrypt(Lib::getIdSatuan());
-				}
-				if(Lib::uRole() == 'pos'){
-					$this->speedboat->id_pos 			= $this->decrypt(Lib::getIdSatuan());
+			if((isset($input['id_upt']) && $input['id_upt'] != null) || (isset($input['id_pos']) && $input['id_pos'] != null) || (isset($input['id_satker']) && $input['id_satker'] != null)){
+				
+				if(Lib::uRole() == null){
+					$this->speedboat->id_upt 			= (isset($input['id_upt'])) ? $this->decrypt($input['id_upt']) : null;
+					$this->speedboat->id_satker 		= (isset($input['id_satker'])) ? $this->decrypt($input['id_satker']) : null;
+					$this->speedboat->id_pos 			= (isset($input['id_pos'])) ? $this->decrypt($input['id_pos']) : null;
+				}else{
+					if(Lib::uRole() == 'upt'){
+						$this->speedboat->id_upt 			= $this->decrypt(Lib::getIdSatuan());
+					}
+					if(Lib::uRole() == 'satker'){
+						$this->speedboat->id_satker 		= $this->decrypt(Lib::getIdSatuan());
+					}
+					if(Lib::uRole() == 'pos'){
+						$this->speedboat->id_pos 			= $this->decrypt(Lib::getIdSatuan());
+					}
 				}
 			}
 			
@@ -87,7 +128,8 @@ class SpeedboatController extends \CoreController {
 			$this->speedboat->nama_speedboat 	= $input['nama_speedboat'];
 			$this->speedboat->id_material 		= $input['id_material'];
 			$this->speedboat->ukuran_speedboat 	= $input['ukuran_speedboat'];
-			$this->speedboat->image 			= $this->createImage($input['gambar_speedboat']);
+			$this->speedboat->image 			= $this->createImage($input['gambar_speedboat'], false, 'speedboat', 500);
+			$this->speedboat->id_type_speedboat = $input['id_type_speedboat'];
 			$this->speedboat->save();
 
 			$respon = ['status' => true, 'msg' => $this->input_success];

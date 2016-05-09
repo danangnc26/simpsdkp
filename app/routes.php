@@ -80,6 +80,12 @@ Route::group(['before' => 'auth'], function(){
 
 	#Speedboat
 	$speedboat = 'SpeedboatController@';
+	Route::get('admin/speedboat/index', ['as' => 'admin.speedboat.index', 'uses' => $speedboat.'index']);
+	Route::get('admin/speedboat/statistik', ['as' => 'admin.speedboat.statistik', 'uses' => $speedboat.'statistik']);
+	Route::get('admin/speedboat/semua_kapal', ['as' => 'admin.speedboat.all', 'uses' => $speedboat.'all']);
+	Route::get('admin/speedboat/semua_kapal/api', ['as' => 'admin.speedboat.all.api', 'uses' => $speedboat.'data_all']);
+	Route::get('admin/speedboat/type', ['as' => 'admin.speedboat.type', 'uses' => $speedboat.'type']);
+
 	Route::get('admin/upt/speedboat/api', ['as' => 'admin.upt.speedboat.api', 'uses' => $speedboat.'getDataSpeedboatCurrentUPT']);
 	Route::get('admin/upt/speedboat/table', ['as' => 'admin.upt.speedboat.table', 'uses' => $speedboat.'pgUPTSpeedboat']);
 	Route::get('admin/upt/speedboat/input', ['as' => 'admin.upt.speedboat.input', 'uses' => $speedboat.'inputSpeedboat']);
@@ -201,48 +207,11 @@ Route::group(['before' => 'auth'], function(){
 
 	#CheckTypeKapal
 	Route::get('admin/plug/chktypekapal', ['as' => 'chk.type.kapal', function(){
-		$data = KapalPengawasModel::where('id_type_kapal', '=',Request::get('id_type_kapal'))->get();
-		$cnt = count($data);
-		if($cnt == 0){
-			$d = '001';
-		}else{
-			$pl = $cnt+1;
-			$len = strlen($cnt);
-			if($len == 1){
-				$no = '00';
-			}elseif($len == 2){
-				$no = '0';
-			}elseif($len == 3){
-				$no = '';
-			}
-			$d = $no.$pl;
-		}
-		$resp = ['no_kapal' => $d];
-		return Response::json($resp);
-		
-
-		// $kd = 'SP';
-		// $supplier = Supplier::max('kode_supp');
-		// if($supplier == null){
-		// 	$kode = $kd.'001';
-		// }else{
-		// 	$num = substr($supplier, 0-3);
-		// 	$one = $num+1;
-		// 	$leng = strlen($one);
-		// 	// $kode = $kd.$num+1;
-		// 	$sub = substr($supplier,0-3);
-		// 	$one = $sub+1;
-		// 	$leng = strlen($one);
-		// 	if($leng == 1){
-		// 	$no = '00';
-		// 	}elseif($leng == 2){
-		// 	$no = '0';
-		// 	}elseif($leng == 3){
-		// 	$no = '';
-		// 	}
-		// 	$kode = $kd.$no.$one;
-		// }
-		// return $kode;
+		return Lib::chkTypeKapal();
+	}]);
+	#CheckTypeSpeedboat
+	Route::get('admin/plug/chktypespeedboat', ['as' => 'chk.type.speedboat', function(){
+		return Lib::chkTypeSpeedboat();
 	}]);
 
 	#ChainProvinsi
@@ -269,6 +238,8 @@ Route::get('tescontent', function(){
 });
 $public = 'PublicController@';
 Route::get('/', ['as' => 'public.visitor.home', 'uses' => $public.'index']);
+Route::get('publikasi_pengawasan', ['as' => 'public.visitor.publikasipengawasan', 'uses' => $public.'publikasiPengawasan']);
+Route::get('plugin/pdfviewer', ['as' => 'public.visitor.plugin.pdfviewer', 'uses' => $public.'pdfViewer']);
 Route::get('konten/{nama_artikel}', ['as' => 'public.visitor.showContent', 'uses' => $public.'show']);
 Route::get('kategori/{kategori}/{sub_kategori?}', ['as' => 'public.visitor.showCategory', 'uses' => $public.'category']);
 Route::get('data/kapal_pengawas', ['as' => 'public.visitor.data.kapal_pengawas', 'uses' => $public.'getDataKapal']);

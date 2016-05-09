@@ -36,14 +36,14 @@
 	<!-- BEGIN HEADER INNER -->
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
-		<div class="page-logo">
+		<div class="page-logo" style="width:700px;">
 			<a href="index.html">
-			{{HTML::image('assets/global/img/logo2.png', '', ['height' => '70', 'class' => 'logo-default'])}}
-			SIMPSDKP
+			<h2 style="margin-top:0px; font-weight:bold">
+				{{HTML::image('assets/global/img/logo2.png', '', ['height' => '70', 'class' => 'logo-default', 'style' => 'margin-top:0px'])}}
+				SIMPSDKP
+			</h2>
 			</a>
-			<div class="menu-toggler sidebar-toggler">
-				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-			</div>
+
 		</div>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -118,6 +118,10 @@
 				</div>
 				<div class="pull-right btn btn-fit-height green">
 					<i class="fa fa-calendar"></i> <span class="thin uppercase hidden-xs">{{Lib::tanggalNow()}}</span>
+				</div>
+				<div class="menu-toggler sidebar-toggler pull-right btn btn-transparent">
+					<i class="fa fa-reorder" style="font-size:1.5em;"></i>
+					<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
 				</div>
 			</div>
 			<!-- <h3 style="margin-top:0px;"></h3> -->

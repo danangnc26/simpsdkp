@@ -51,7 +51,12 @@
 	.page-break {
 	    page-break-after: always;
 	}
-	
+	table.persebaran1 tr:last-child td {
+	 	border-bottom: none;
+	}
+	table.persebaran2 tr:last-child {
+	 	border-bottom: none;
+	}
 
 	</style>
 </head>
@@ -269,13 +274,13 @@
 		<tbody>
 			<tr>
 				<td colspan="2" style="padding:0px">
-					<table class="persebaran1" style="border:none;">
+					<table class="persebaran1" border="0" style="border-left:none; border-bottom:none; border-right:none; border-top:none">
 							@if(empty($data2))
 							@else
 							@foreach($q_l_t as $vp1)
 							<tr>
-								<td valign="top">{{$vp1}}</td>
-								<td>
+								<td style="border-bottom:1px solid #000; border-right:1px solid #000" valign="top" style="border-left:none;">{{$vp1}}</td>
+								<td style="border-bottom:1px solid #000">
 									@foreach($p_t as $k_l)
 										@if($k_l['posisi'] == $vp1)
 											<ul style="padding-left:20px; margin-top:0px; font-size:0.8em">
@@ -289,14 +294,14 @@
 							@endif
 					</table>		
 				</td>
-				<td colspan="2" style="padding:0px">
-					<table class="persebaran2" style="border:none;">
+				<td class="persebaran2" colspan="2" style="padding:0px">
+					<table border="0" style="border-left:none; border-bottom:none; border-right:none; border-top:none">
 							@if(empty($data2))
 							@else
 							@foreach($q_r_t as $vp2)
 							<tr>
-								<td valign="top">{{$vp2}}</td>
-								<td>
+								<td valign="top" style="border-bottom:1px solid #000; border-right:1px solid #000">{{$vp2}}</td>
+								<td style="border-bottom:1px solid #000">
 									@foreach($p_t as $k_r)
 										@if($k_r['posisi'] == $vp2)
 											<ul style="padding-left:20px; margin-top:0px; font-size:0.8em">

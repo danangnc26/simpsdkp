@@ -31,7 +31,7 @@ class OperasiController extends \CoreController {
         	return Lib::inDate($md5->tanggal);
         })
         ->addColumn('kapalpengawas', function($md4){
-        	return $md4->kapalpengawas->nama_kapal_pengawas;
+        	// return $md4->kapalpengawas->nama_kapal_pengawas;
         })
         ->addColumn('status', function($md1){
         	switch ($md1->status) {
@@ -97,14 +97,35 @@ class OperasiController extends \CoreController {
 
 			$input = Input::all();
 
-			$this->operasi->id_upt 				= (Lib::uRole() == 'upt') ? $this->decrypt(Lib::getIdSatuan()) : null;
-			$this->operasi->id_satker 			= (Lib::uRole() == 'satker') ? $this->decrypt(Lib::getIdSatuan()) : null;
-			$this->operasi->id_pos 				= (Lib::uRole() == 'pos') ? $this->decrypt(Lib::getIdSatuan()) : null;
-			$this->operasi->id_kapal_pengawas 	= $input['kapal_pengawas'];
+			if($input['upt'] != null){
+				$this->operasi->id_upt		= $input['upt'];
+			}
+			if($input['satker'] != null){
+				$this->operasi->id_satker	= $input['satker'];
+			}
+			if($input['pos'] != null){
+				$this->operasi->id_pos		= $input['pos'];
+			}
+			// $this->operasi->id_upt 				= (Lib::uRole() == 'upt') ? $this->decrypt(Lib::getIdSatuan()) : null;
+			// $this->operasi->id_satker 			= (Lib::uRole() == 'satker') ? $this->decrypt(Lib::getIdSatuan()) : null;
+			// $this->operasi->id_pos 				= (Lib::uRole() == 'pos') ? $this->decrypt(Lib::getIdSatuan()) : null;
+
+
+
+			// $this->operasi->id_kapal_pengawas 	= $input['kapal_pengawas'];
 			$this->operasi->tanggal			  	= Lib::enDate($input['tanggal']);
 			$this->operasi->status 				= $input['status'];
 			$this->operasi->tindakan 		 	= $input['tindakan'];
 			$this->operasi->id_negara 			= $input['bendera_negara'];
+			$this->operasi->nama_kapal 			= $input['nama_kapal'];
+			$this->operasi->ukuran_kapal		= $input['ukuran_kapal'];
+			$this->operasi->nama_tersangka		= $input['tersangka'];
+			$this->operasi->jumlah_abk 			= $input['jumlah_awak'];
+			$this->operasi->proses_hukum_saat_ini = $input['proses_hukum'];
+			$this->operasi->pelanggaran 		= $input['pelanggaran'];
+			$this->operasi->keterangan_pelanggaran = $input['keterangan_pelanggaran'];
+			$this->operasi->pelaksana_penenggelaman = $input['pelaksana_penenggelaman'];
+			$this->operasi->image 				= $this->createImage($input['foto_kapal'], false, 'pelanggaran', 500);
 			$this->operasi->save();
 
 			if($input['status'] == 'T'){

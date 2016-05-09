@@ -38,6 +38,16 @@ class PublicController extends \CoreController {
 		// return View::make('output.kapal_pengawas.buku')->with(['data1' => $data1, 'data2' => $data2]);
 	}
 
+	public function publikasiPengawasan()
+	{
+		$this->layout()->content = View::make('page.public.publikasi');
+	}
+
+	public function pdfViewer()
+	{
+		return View::make('page.public.addon.viewer');
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /public/create
